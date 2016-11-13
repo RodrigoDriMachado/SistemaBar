@@ -24,4 +24,6 @@ public interface CadastroCliente {
     public List<Cliente> listaClientePorCategoria(String categoria);
     
     public int totalCliente();
+    
+    public boolean vazia();
 }

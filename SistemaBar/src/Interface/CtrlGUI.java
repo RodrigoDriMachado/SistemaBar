@@ -100,9 +100,9 @@ public class CtrlGUI {
 
     public ListModel getClientesCategoria(String categoria) throws BarException {
         DefaultListModel lmClienteCategoria = new DefaultListModel();
-          List<Cliente> clientesCategoria;
+        List<Cliente> clientesCategoria;
         try {
-          
+
             clientesCategoria = cadCliente.listaClientePorCategoria(categoria);
             for (Cliente clnt : clientesCategoria) {
                 lmClienteCategoria.addElement(clnt);
@@ -116,13 +116,25 @@ public class CtrlGUI {
     public int quantidadeClientesGenero(String genero) {
         return cadCliente.quantidadeClientesGenero(genero);
     }
-    
-     public int quantidadeClientesCategoria(String categoria) {
+
+    public int quantidadeClientesCategoria(String categoria) {
         return cadCliente.quantidadeClienteCategoria(categoria);
     }
-    
-     public int totalClientes(){
-         return cadCliente.totalCliente();
-     }
+
+    public int totalClientes() {
+        return cadCliente.totalCliente();
+    }
+
+    public boolean validaCliente(String cpf) throws DAOException {
+        if (!cadCliente.vazia()) {
+            Cliente clnt;
+            clnt = cadCliente.pesquisaClienteCPF(cpf);
+            if (clnt != null) {
+                return true;
+            }
+
+        }
+        return false;
+    }
 
 }

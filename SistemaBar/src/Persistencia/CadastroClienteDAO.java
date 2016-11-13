@@ -72,10 +72,7 @@ public class CadastroClienteDAO implements CadastroCliente {
             }
         } else if (listaCliente.isEmpty()) {
             throw new DAOException("Lista Vazia");
-        } else {
-            throw new DAOException("CPF não cadastrado!!");
-        }
-
+        } 
         return clnt;
     }
 
@@ -178,6 +175,11 @@ public class CadastroClienteDAO implements CadastroCliente {
     @Override
     public int totalCliente() {
         return this.listaCliente.size();
+    }
+
+    @Override
+    public boolean vazia() {
+        return listaCliente.isEmpty();
     }
 
 }

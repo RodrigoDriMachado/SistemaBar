@@ -203,6 +203,15 @@ public class CadastroCliente extends javax.swing.JFrame {
             this.categoria= null;
         }
         try {
+            if(cntrl.validaCliente(jTextCPF.getText())){
+                
+                jTextCPF.setText(null);
+            }
+        } catch (DAOException ex) {
+            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
             cntrl.salvar(jTextNome.getText(), jTextCPF.getText(), this.jCBSexo.getSelectedItem().toString(), jTextIdade.getText(), tipoCliente, this.categoria);
             JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!!");
             LimpaCampos();
