@@ -1,4 +1,7 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Interface;
 
 import Negocio.BarException;
@@ -9,83 +12,117 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 import Negocio.CadastroCliente;
+import Persistencia.ClienteTxtFile;
+import Persistencia.DAOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ *
+ * @author Bernardo Copstein
+ */
 public class CtrlGUI {
 
     private String contribuinteAtual;
     private CadastroCliente cadCliente;
+    private ClienteTxtFile clntTXT;
 
     public CtrlGUI() throws BarException {
         try {
-            //Melhor seria utilizar injeÁ„o de dependÍncia
             cadCliente = new CadastroClienteDAO();
+            clntTXT = new ClienteTxtFile();
         } catch (Exception ex) {
             throw new BarException(ex);
         }
     }
 
-    public void salvar(String nome, String cpf, String sIdade, String tpClnt, String sexo, String categoria) throws BarException, NumberFormatException {
+    public void salvar(String nome, String cpf, String sexo, String sIdade, String tpClnt, String categoria) throws BarException, NumberFormatException {
 
         int idade = Integer.parseInt(sIdade);
         if (!ValidadorCliente.getInstance().validaNome(nome)) {
-            throw new BarException("Nome inv·lido");
+            throw new BarException("Nome inv√°lido");
         }
         if (!ValidadorCliente.getInstance().validaCpf(cpf)) {
-            throw new BarException("Cpf inv·lido");
+            throw new BarException("Cpf inv√°lido");
         }
         if (!ValidadorCliente.getInstance().validaIdade(idade)) {
-            throw new BarException("Idade inv·lida");
-        }/*
-        if(!ValidadorCliente.getInstance().validaTipoCliente(tpClnt, categoria)){
-            throw new BarException("Tipo Cliente Incorreto");
-        }*/
+            throw new BarException("Idade inv√°lida");
+        }
 
-        Cliente clnt = new Cliente(nome, cpf, idade, tpClnt, sexo);
-        clnt.setCateg(categoria);
+        Cliente clnt = new Cliente(nome, cpf, sexo, idade, tpClnt, categoria);
+
         cadCliente.add(clnt);
+        clntTXT.add(clnt);
+    }
 
+    public boolean registrarSaida(String cpf) throws BarException, DAOException {
+        Cliente clnt;
+        boolean retorno = false;
+        try {
+            clnt = cadCliente.pesquisaClienteCPF(cpf);
+            clntTXT.removeCliente(clnt);
+            cadCliente.removeCliente(clnt);
+            retorno = true;
+        } catch (DAOException mensagem) {
+            throw new BarException(mensagem);
+        }
+
+        return retorno;
     }
 
     public ListModel getClientes() throws BarException {
         DefaultListModel lmCliente = new DefaultListModel();
         List<Cliente> clientes;
         try {
-            clientes = cadCliente.ListaCliente();
+            clientes = cadCliente.listaCliente();
             for (Cliente clnt : clientes) {
                 lmCliente.addElement(clnt);
             }
-        } catch (Exception e) {
-            throw new BarException(e);
+        } catch (Exception mensagem) {
+            throw new BarException(mensagem);
         }
         return lmCliente;
     }
 
-    public ListModel getClientesMasculino() throws BarException {
-        DefaultListModel lmClienteMasculino = new DefaultListModel();
-        List<Cliente> clientesMasculino;
+    public ListModel getClientesGenero(String genero) throws BarException {
+        DefaultListModel lmClienteGenero = new DefaultListModel();
+        List<Cliente> clientesGenero;
         try {
-            clientesMasculino = cadCliente.ListaClienteMasculino();
-            for (Cliente clnt : clientesMasculino) {
-                lmClienteMasculino.addElement(clnt);
+            clientesGenero = cadCliente.listaClientePorSexo(genero);
+            for (Cliente clnt : clientesGenero) {
+                lmClienteGenero.addElement(clnt);
             }
-        } catch (Exception e) {
-            throw new BarException(e);
+        } catch (Exception mensagem) {
+            throw new BarException(mensagem);
         }
-        return lmClienteMasculino;
+        return lmClienteGenero;
     }
 
-    public ListModel getClientesFeminino() throws BarException {
-        DefaultListModel lmFeminino = new DefaultListModel();
-        List<Cliente> clientesFeminino;
+    public ListModel getClientesCategoria(String categoria) throws BarException {
+        DefaultListModel lmClienteCategoria = new DefaultListModel();
+          List<Cliente> clientesCategoria;
         try {
-            clientesFeminino = cadCliente.ListaClienteFeminino();
-            for (Cliente clnt : clientesFeminino) {
-                lmFeminino.addElement(clnt);
+          
+            clientesCategoria = cadCliente.listaClientePorCategoria(categoria);
+            for (Cliente clnt : clientesCategoria) {
+                lmClienteCategoria.addElement(clnt);
             }
-        } catch (Exception e) {
-            throw new BarException(e);
+        } catch (Exception mensagem) {
+            throw new BarException(mensagem);
         }
-        return lmFeminino;
+        return lmClienteCategoria;
     }
+
+    public int quantidadeClientesGenero(String genero) {
+        return cadCliente.quantidadeClientesGenero(genero);
+    }
+    
+     public int quantidadeClientesCategoria(String categoria) {
+        return cadCliente.quantidadeClienteCategoria(categoria);
+    }
+    
+     public int totalClientes(){
+         return cadCliente.totalCliente();
+     }
 
 }

@@ -1,5 +1,9 @@
 package Negocio;
 
+/**
+ *
+ * @author Bernardo Copstein
+ */
 public class ValidadorCliente {
 
     private static ValidadorCliente vc = null;
@@ -36,7 +40,7 @@ public class ValidadorCliente {
         }
         return true;
     }
-
+    
      public boolean validaTipoCliente(String tipo, String categoria) {
         if (tipo.equals("COMUM")==true && categoria.equals(" ")==false) {
             return false;
@@ -48,5 +52,5 @@ public class ValidadorCliente {
     }
 
 
-
+   
 }

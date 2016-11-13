@@ -5,17 +5,33 @@ import java.util.ArrayList;
 import Negocio.Cliente;
 import java.util.List;
 import Negocio.CadastroCliente;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CadastroClienteDAO implements CadastroCliente {
 
+    private ClienteTxtFile clntTxt;
     private List<Cliente> listaCliente;
     private static CadastroClienteDAO cad = null;
+    private FileWriter arq;
+    private PrintWriter gravarArq;
+//  FileWriter arq;
+    // PrintWriter gravarArq = new PrintWriter(arq);
 
-    public CadastroClienteDAO() {
+    public CadastroClienteDAO() throws IOException {
+
+        clntTxt = new ClienteTxtFile();
+        /*
+        this.arq = new FileWriter("C:\\Users\\l61615\\Documents\\entrada.txt");
+        this.gravarArq = new PrintWriter(arq);*/
+        // this.arq = new FileWriter("C:\\Users\\l61615\\Documents\\NetBeansProjects\\SistemaBAR\\entrada.txt");
         listaCliente = new ArrayList<>();
     }
 
-    public static CadastroClienteDAO getInstance() {
+    public static CadastroClienteDAO getInstance() throws IOException {
         if (cad == null) {
             cad = new CadastroClienteDAO();
         }
@@ -23,142 +39,145 @@ public class CadastroClienteDAO implements CadastroCliente {
     }
 
     @Override
-    public void cleanAll() {
-        listaCliente.clear();
+    public void add(Cliente cliente) {
+        listaCliente.add(cliente);
 
     }
 
     @Override
-    public void add(Cliente Cliente) {
-        listaCliente.add(Cliente);
-
-    }
-
-    @Override
-    public boolean containsCliente(Cliente clnt) {
-        return listaCliente.contains(clnt);
-
-    }
-
-    @Override
-    public void removeCliente(int index) {
-        listaCliente.remove(index);
-
-    }
-
-    @Override
-    public Cliente pesquisaClienteNome(String nome) {
-        Cliente clnt = null;
+    public void removeCliente(Cliente cliente) throws DAOException {
+        boolean achou = false;
         for (int i = 0; i < listaCliente.size(); i++) {
-            if (listaCliente.get(i).getNome().equals(nome)) {
-                clnt = listaCliente.get(i);
+            if (listaCliente.get(i).equals(cliente)) {
+                listaCliente.remove(i);
+                achou = true;
             }
+
         }
+        if (achou == false) {
+            throw new DAOException("Cliente Inexistente!!");
+        }
+
+    }
+
+    @Override
+    public Cliente pesquisaClienteCPF(String cpf) throws DAOException {
+        boolean achou = false;
+        Cliente clnt = null;
+        if (!listaCliente.isEmpty()) {
+            for (int i = 0; i < listaCliente.size(); i++) {
+                if (listaCliente.get(i).getCpf().equals(cpf)) {
+                    clnt = listaCliente.get(i);
+                }
+            }
+        } else if (listaCliente.isEmpty()) {
+            throw new DAOException("Lista Vazia");
+        } else {
+            throw new DAOException("CPF não cadastrado!!");
+        }
+
         return clnt;
     }
 
     @Override
-    public boolean pesquisaClienteCPF(String cpf) {
-        boolean aux = false;
-        if (!listaCliente.isEmpty()) {
-            for (int i = 0; i < listaCliente.size(); i++) {
-                if (listaCliente.get(i).getNome().equals(cpf)) {
-                    aux = true;
+    public int quantidadeClientesGenero(String genero) {
+        int cont = 0;
+        if (genero.equals("Feminino")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getSexo().equals("Feminino")) {
+                    cont++;
+                }
+            }
+
+        } else if (genero.equals("Masculino")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getSexo().equals("Masculino")) {
+                    cont++;
                 }
             }
         }
-        return aux;
+        return cont;
     }
 
     @Override
-    public int pesquisaNodoCliente(String nome) {
-        int aux = 0;
-        for (int i = 0; i < listaCliente.size(); i++) {
-            if (listaCliente.get(i).getNome().equals(nome)) {
-                aux = listaCliente.indexOf(listaCliente.get(i));
+    public int quantidadeClienteCategoria(String categoria) {
+        int cont = 0;
+        if (categoria.equals("SILVER")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getCategoria().equals("SILVER")) {
+                    cont++;
+                }
+            }
+
+        } else if (categoria.equals("GOLD")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getCategoria().equals("GOLD")) {
+                    cont++;
+                }
             }
         }
-        return aux;
-    }
-
-    @Override
-    public Cliente getCliente(String nome) {
-        Cliente aux = null;
-        for (int i = 0; i < listaCliente.size(); i++) {
-            if (listaCliente.get(i).getNome().equals(nome)) {
-                aux = listaCliente.get(i);
+        else if(categoria.equals("PLATINUM")){
+            for(Cliente cliente : listaCliente){
+                if(cliente.getCategoria().equals("PLATINUM")){
+                    cont++;
+                }
             }
         }
-        return aux;
+        return cont;
     }
 
     @Override
-    public boolean vazia() {
-        return listaCliente.isEmpty();
-    }
-
-    @Override
-    public int ClntMasculino() {
-        int contM = 0;
-        for (Cliente cliente : listaCliente) {
-            if (cliente.getSexo().equals("Masculino"));
-            contM++;
-        }
-        return contM;
-    }
-
-    @Override
-    public int ClntFeminino() {
-        int contF = 0;
-        for (Cliente cliente : listaCliente) {
-            if (cliente.getSexo().equals("Feminino"));
-            contF++;
-        }
-        return contF;
-    }
-
-    @Override
-    public List<Cliente> ListaCliente() {
+    public List<Cliente> listaCliente() {
         return listaCliente;
     }
 
     @Override
-    public List<Cliente> ListaClienteMasculino() {
-         List<Cliente> listaMasculino = new ArrayList();
-        for (Cliente cliente : listaCliente) {
-            if (cliente.getSexo().equals("Masculino")){
-                listaMasculino.add(cliente);
+    public List<Cliente> listaClientePorSexo(String sexo) {
+        List<Cliente> listaClientePorSexo = new ArrayList();
+        if (sexo.equals("Masculino")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getSexo().equals("Masculino")) {
+                    listaClientePorSexo.add(cliente);
+                }
             }
-
-        }
-        return listaMasculino;
-    }
-
-
-     @Override
-    public List<Cliente> ListaClienteFeminino() {
-         List<Cliente> listaFeminino = new ArrayList();
-        for (Cliente cliente : listaCliente) {
-            if (cliente.getSexo().equals("Feminino")){
-                listaFeminino.add(cliente);
+        } else {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getSexo().equals("Feminino")) {
+                    listaClientePorSexo.add(cliente);
+                }
             }
-
         }
-        return listaFeminino;
+        return listaClientePorSexo;
     }
-
 
     @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        s.append("Imprimindo Lista de Cliente");
-        s.append("\n");
-        s.append("\n");
-        for (int i = 0; i < listaCliente.size(); i++) {
-            s.append(listaCliente.get(i).toString());
-            s.append("\n");
+    public List<Cliente> listaClientePorCategoria(String categoria) {
+        List<Cliente> listaClientePorCategoria = new ArrayList();
+        if (categoria.equals("GOLD")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getCategoria().equals("GOLD")) {
+                    listaClientePorCategoria.add(cliente);
+                }
+            }
+        } else if (categoria.equals("SILVER")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getCategoria().equals("SILVER")) {
+                    listaClientePorCategoria.add(cliente);
+                }
+            }
+        } else if (categoria.equals("PLATINUM")) {
+            for (Cliente cliente : listaCliente) {
+                if (cliente.getCategoria().equals("PLATINUM")) {
+                    listaClientePorCategoria.add(cliente);
+                }
+            }
         }
-        return s.toString();
+        return listaClientePorCategoria;
+    }
+
+    @Override
+    public int totalCliente() {
+        return this.listaCliente.size();
     }
 
 }

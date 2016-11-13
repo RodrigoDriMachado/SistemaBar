@@ -20,12 +20,12 @@ import javax.swing.ListModel;
  */
 public class ListaClientes extends javax.swing.JDialog {
     private ListModel clientes;
-    private JanelaBar jp;
+    private Principal jp;
 
     /** Creates new form DlgSeleciona */
     public ListaClientes(java.awt.Frame parent, boolean modal,ListModel contr) {
         super(parent, modal);
-        jp = (JanelaBar)parent;
+        jp = (Principal)parent;
         clientes = contr;
         initComponents();
     }
@@ -61,8 +61,8 @@ public class ListaClientes extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(185, 185, 185)
                 .addComponent(butOk))
@@ -70,9 +70,9 @@ public class ListaClientes extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(butOk))
         );
 
@@ -80,6 +80,7 @@ public class ListaClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butOkActionPerformed
+        ListaClientes.setToolTipText(null);
         dispose();
     }//GEN-LAST:event_butOkActionPerformed
 

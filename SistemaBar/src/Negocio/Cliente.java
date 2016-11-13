@@ -1,23 +1,24 @@
 package Negocio;
 
 public class Cliente {
-
+	
 	private String nome;
 	private String cpf;
 	private int idade;
 	private String tipoCliente;
 	private String tpClnt;
 	private String sexo;
-        private String categ;
-
-
-	public Cliente(String nome, String cpf, int idade, String tipoCliente, String sexo) {
+        private String categoria;
+	
+	
+	public Cliente(String nome, String cpf, String sexo, int idade, String tipoCliente, String categoria) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
 		this.idade = idade;
 		this.tipoCliente = tipoCliente;
 		this.sexo = sexo;
+                this.categoria = categoria;
 	}
 
 
@@ -55,6 +56,10 @@ public class Cliente {
 		return this.tipoCliente;
 	}
 
+        public String getCategoria() {
+		return this.categoria;
+	}
+
 
 	public void setTipoCliente(String tpCliente) {
 		this.tipoCliente = tpCliente;
@@ -68,16 +73,16 @@ public class Cliente {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
-        public void setCateg (String categoria){
-                this.categ = categoria;
+        
+        public void setCategoria (String categoria){
+                this.categoria = categoria;
         }
 
 
 	@Override
 	public String toString() {
-		return "Cliente [nome=" + this.nome + ", cpf=" + this.cpf + ", idade=" + this.idade + ", tipoCliente=" + this.tipoCliente
-				+ ", categoria=" + this.categ + ", sexo=" + this.sexo + "]";
+		return this.nome + "," + this.cpf  + "," + this.idade + "," + this.sexo + "," + this.tipoCliente
+				+ "," + this.categoria ;
 	}
 
 }
