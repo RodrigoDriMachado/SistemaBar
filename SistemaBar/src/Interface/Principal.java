@@ -21,7 +21,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form JanelaBar
      */
-    private CtrlGUI clntGUI;
+    private ClntGUI clntGUI;
     private String categoria;
     private String tipoCliente;
     private String sexo;
@@ -31,7 +31,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
 
         try {
-            clntGUI = new CtrlGUI();
+            clntGUI = new ClntGUI();
         } catch (BarException ex) {
             JOptionPane.showMessageDialog(null, "Falha de inicialização. " + ex.getMessage());
         }

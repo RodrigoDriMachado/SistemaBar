@@ -20,9 +20,9 @@ public class RegistraSaida extends javax.swing.JFrame {
     /**
      * Creates new form RegistraSaida
      */
-    private CtrlGUI clienteGUI;
+    private ClntGUI clienteGUI;
 
-    public RegistraSaida(CtrlGUI clntGui) {
+    public RegistraSaida(ClntGUI clntGui) {
         initComponents();
         clienteGUI = clntGui;
         this.setVisible(true);

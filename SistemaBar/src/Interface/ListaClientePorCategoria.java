@@ -19,9 +19,9 @@ public class ListaClientePorCategoria extends javax.swing.JFrame {
      * Creates new form ListaClientePorSexo
      */
     private ListModel clientes;
-    private CtrlGUI clienteGUI;
+    private ClntGUI clienteGUI;
 
-    public ListaClientePorCategoria(CtrlGUI clntGUI) {
+    public ListaClientePorCategoria(ClntGUI clntGUI) {
         initComponents();
         clienteGUI = clntGUI;
     }

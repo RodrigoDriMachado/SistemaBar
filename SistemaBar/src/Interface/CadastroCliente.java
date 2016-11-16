@@ -22,12 +22,12 @@ public class CadastroCliente extends javax.swing.JFrame {
     /**
      * Creates new form JanelaBar
      */
-    private CtrlGUI cntrl;
+    private ClntGUI cntrl;
     private String categoria;
     private String tipoCliente;
     private String sexo;
 
-    public CadastroCliente(CtrlGUI clntGui){
+    public CadastroCliente(ClntGUI clntGui){
         
         initComponents();
         jCBCategoria.disable();
@@ -197,10 +197,12 @@ public class CadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextNomeActionPerformed
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        this.categoria = ((CategoriaVIP) jCBCategoria.getSelectedItem()).toString();
         this.tipoCliente = (String) jCBTipoCliente.getSelectedItem();
-        if(this.categoria.equals("VAZIO")==true){
+        if(tipoCliente.equals("COMUM")){
             this.categoria= null;
+        }
+        else{
+             this.categoria = ((CategoriaVIP) jCBCategoria.getSelectedItem()).toString();
         }
         try {
             if(cntrl.validaCliente(jTextCPF.getText())){

@@ -11,14 +11,14 @@ package Negocio;
  */
 public enum CategoriaVIP {
     
-    VAZIO(""),SILVER("SILVER"),GOLD("GOLD"),PLATINUM("PLATINUM");
+    Vazio(null),SILVER("SILVER"),GOLD("GOLD"),PLATINUM("PLATINUM");
     private static String categoria;
     CategoriaVIP(String categoria){
         categoria = categoria;
     }
     
     public static String getCategoriaVAZIO(){
-        return VAZIO.toString();
+        return "";
     }
     public static String getCategoriaSilver(){
        return SILVER.toString();

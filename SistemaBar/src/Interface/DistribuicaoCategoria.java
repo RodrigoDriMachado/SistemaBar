@@ -17,8 +17,8 @@ public class DistribuicaoCategoria extends javax.swing.JFrame {
     /**
      * Creates new form DistribuicaoCategoria
      */
-    private CtrlGUI clienteGUI;
-    public DistribuicaoCategoria(CtrlGUI clntGUI) {
+    private ClntGUI clienteGUI;
+    public DistribuicaoCategoria(ClntGUI clntGUI) {
         initComponents();
         clienteGUI = clntGUI;
     }

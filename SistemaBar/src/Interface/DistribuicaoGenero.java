@@ -21,9 +21,9 @@ public class DistribuicaoGenero extends javax.swing.JFrame {
      * Creates new form DistribuicaoGenero
      */
     
-    private CtrlGUI clienteGUI;
+    private ClntGUI clienteGUI;
     
-    public DistribuicaoGenero(CtrlGUI clntGUI) {
+    public DistribuicaoGenero(ClntGUI clntGUI) {
         initComponents();
         clienteGUI = clntGUI;
     }
