@@ -1,9 +1,5 @@
 package Negocio;
 
-/**
- *
- * @author Bernardo Copstein
- */
 public class ValidadorCliente {
 
     private static ValidadorCliente vc = null;
@@ -50,7 +46,4 @@ public class ValidadorCliente {
         }
         return true;
     }
-
-
-   
 }

@@ -1,35 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Interface;
 
 import Negocio.BarException;
 import Negocio.Cliente;
 import Negocio.ValidadorCliente;
-import Persistencia.CadastroClienteDAO;
+import Persistencia.ClienteDAO;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
-import Negocio.CadastroCliente;
+import Negocio.CadastroClienteDAO;
 import Persistencia.ClienteTxtFile;
 import Persistencia.DAOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author Bernardo Copstein
- */
 public class ClntGUI {
 
-    private String contribuinteAtual;
-    private CadastroCliente cadCliente;
+    private CadastroClienteDAO cadCliente;
     private ClienteTxtFile clntTXT;
 
     public ClntGUI() throws BarException {
         try {
-            cadCliente = new CadastroClienteDAO();
+            cadCliente = new ClienteDAO();
             clntTXT = new ClienteTxtFile();
         } catch (Exception ex) {
             throw new BarException(ex);
@@ -37,7 +26,6 @@ public class ClntGUI {
     }
 
     public void salvar(String nome, String cpf, String sexo, String sIdade, String tpClnt, String categoria) throws BarException, NumberFormatException {
-
         int idade = Integer.parseInt(sIdade);
         if (!ValidadorCliente.getInstance().validaNome(nome)) {
             throw new BarException("Nome inválido");
@@ -48,14 +36,12 @@ public class ClntGUI {
         if (!ValidadorCliente.getInstance().validaIdade(idade)) {
             throw new BarException("Idade inválida");
         }
-
         Cliente clnt = new Cliente(nome, cpf, sexo, idade, tpClnt, categoria);
-
         cadCliente.add(clnt);
         clntTXT.add(clnt);
     }
 
-    public boolean registrarSaida(String cpf) throws BarException, DAOException {
+    public boolean registrarSaida(String cpf) throws DAOException {
         Cliente clnt;
         boolean retorno = false;
         try {
@@ -64,9 +50,8 @@ public class ClntGUI {
             cadCliente.removeCliente(clnt);
             retorno = true;
         } catch (DAOException mensagem) {
-            throw new BarException(mensagem);
+            throw new DAOException("Nao foi possivel remover o cliente!!");
         }
-
         return retorno;
     }
 
@@ -102,7 +87,6 @@ public class ClntGUI {
         DefaultListModel lmClienteCategoria = new DefaultListModel();
         List<Cliente> clientesCategoria;
         try {
-
             clientesCategoria = cadCliente.listaClientePorCategoria(categoria);
             for (Cliente clnt : clientesCategoria) {
                 lmClienteCategoria.addElement(clnt);
@@ -132,7 +116,6 @@ public class ClntGUI {
             if (clnt != null) {
                 return true;
             }
-
         }
         return false;
     }

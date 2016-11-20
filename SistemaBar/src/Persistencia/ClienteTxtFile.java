@@ -1,6 +1,5 @@
 package Persistencia;
 
-import Negocio.CadastroCliente;
 import Negocio.Cliente;
 import java.io.*;
 import java.util.ArrayList;
@@ -8,17 +7,11 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-/**
- *
- * @author Bernardo Copstein
- */
 public class ClienteTxtFile {
     
     private static final String arquivoEntrada = "entrada.dat";
     private static final String arquivoSaida = "saida.dat";
     private List<Cliente> listaCliente;
-   
     
     private void saveDataEntrada() throws IOException {
        FileWriter fw = new FileWriter(arquivoEntrada);
@@ -107,14 +100,7 @@ public class ClienteTxtFile {
         listaCliente = new ArrayList<Cliente>();
         File fentrada = new File(arquivoEntrada);
         File fsaida = new File(arquivoSaida);
-        /*if (fentrada.exists()) {
-            loadDataEntrada();
-        }
-        if (fsaida.exists()) {
-            loadDataSaida();
-        }*/
     }
- 
   
     public void add(Cliente cliente) {
         listaCliente.add(cliente);
@@ -125,10 +111,8 @@ public class ClienteTxtFile {
         }        
     }
     
-   
     public void removeCliente(Cliente cliente) throws DAOException {
         try {
-         
             saveDataSaida(cliente);
         } catch (IOException mensagem) {
            throw new DAOException("Erro ao salvar arquivo!");
@@ -136,18 +120,6 @@ public class ClienteTxtFile {
         listaCliente.remove(cliente);
     }
 
-    
-
-    public Cliente pesquisaClienteCPF(String cpf) {
-        for (Cliente c : listaCliente) {
-            if (c.getCpf().equals(cpf)) {
-                return c;
-            }
-        }
-        return null;
-    }
-   
-
-   
+ 
     
 }
