@@ -6,7 +6,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Persistencia.DAOException;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -38,7 +42,7 @@ public class DistribuicaoGenero extends JFrame {
 		contentPane.add(label);
 
 		final JComboBox jComboBoxGenero = new JComboBox();
-		jComboBoxGenero.setModel(new DefaultComboBoxModel(new String[] {"", "Masculino", "Feminino"}));
+		jComboBoxGenero.setModel(new DefaultComboBoxModel(new String[] { "", "Masculino", "Feminino" }));
 		jComboBoxGenero.setBounds(76, 21, 89, 20);
 		contentPane.add(jComboBoxGenero);
 
@@ -73,32 +77,38 @@ public class DistribuicaoGenero extends JFrame {
 		JButton jButtonValidar = new JButton("Calcular");
 		jButtonValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			       int total;
-			       int calculo;
-			       total = cntrl.quantidadeClientesGenero("Masculino") + cntrl.quantidadeClientesGenero("Feminino");
-			        if(jComboBoxGenero.getSelectedIndex()==0){
-			            calculo = 100 * cntrl.quantidadeClientesGenero("Masculino");
-			            calculo = calculo / total;
-			            jTextFieldPercentualMasculino.setText(calculo + "%");
-			            calculo = 100 * cntrl.quantidadeClientesGenero("Feminino");
-			            calculo = calculo / total;
-			            jTextFieldPercentualFeminino.setText(calculo + "%");
-			        }
-			        else if(jComboBoxGenero.getSelectedIndex()==1){
-			            calculo = 100 * cntrl.quantidadeClientesGenero("Masculino");
-			            calculo = calculo / total;
-			            jTextFieldPercentualMasculino.setText(calculo + "%");
-			        }
-			        else if(jComboBoxGenero.getSelectedIndex()==2){
-			            calculo = 100 * cntrl.quantidadeClientesGenero("Feminino");
-			            calculo = calculo / total;
-			            jTextFieldPercentualFeminino.setText(calculo + "%");
-			        }
+				int total=0;
+				int calculo;
+				try {
+					total = cntrl.quantidadeClientesGenero("Masculino") + cntrl.quantidadeClientesGenero("Feminino");
+				} catch (DAOException ex) {
+					JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
+				}
+				if (jComboBoxGenero.getSelectedIndex() == 1) {
+					try{
+					jTextFieldPercentualFeminino.setText(null);
+					calculo = 100 * cntrl.quantidadeClientesGenero("Masculino");
+					calculo = calculo / total;
+					jTextFieldPercentualMasculino.setText(calculo + "%");
+					}
+					catch (DAOException ex) {
+						JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
+					}
+				} else if (jComboBoxGenero.getSelectedIndex() == 2) {
+					try{
+					jTextFieldPercentualMasculino.setText(null);
+					calculo = 100 * cntrl.quantidadeClientesGenero("Feminino");
+					calculo = calculo / total;
+					jTextFieldPercentualFeminino.setText(calculo + "%");
+					}
+					catch (DAOException ex) {
+						JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
+					}
+				}
 			}
 		});
 		jButtonValidar.setBounds(303, 20, 89, 23);
 		contentPane.add(jButtonValidar);
-
 
 	}
 }

@@ -5,24 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface CadastroClienteDAO {
- 
-    public void add(Cliente cliente);
+
+    public void add(Cliente cliente) throws DAOException;
 
     public void removeCliente(Cliente cliente)throws DAOException;
 
     public Cliente pesquisaClienteCPF(String cpf)throws DAOException;
 
-    public int quantidadeClienteCategoria(String categoria);
-    
-    public int quantidadeClientesGenero(String genero);
+    public int quantidadeClienteCategoria(String categoria) throws DAOException;
 
-    public List<Cliente> listaCliente();
+    public int quantidadeClientesGenero(String genero) throws DAOException;
 
-    public List<Cliente> listaClientePorSexo(String sexo);
-    
-    public List<Cliente> listaClientePorCategoria(String categoria);
-    
+    public List<Cliente> listaCliente() throws DAOException;
+
+    public List<Cliente> listaClientePorSexo(String sexo) throws DAOException;
+
+    public List<Cliente> listaClientePorCategoria(String categoria) throws DAOException;
+
     public int totalCliente();
-    
-    public boolean vazia();
+
+    public boolean vazia() throws DAOException;
 }

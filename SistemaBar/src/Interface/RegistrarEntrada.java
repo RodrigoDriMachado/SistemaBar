@@ -116,7 +116,7 @@ public class RegistrarEntrada extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 				tipoCliente = jCBTipoCliente.getSelectedItem().toString();
-		        if(tipoCliente.equals("COMUM")){
+		        if(tipoCliente.equals("Comum")){
 		            categoria= null;
 		        }
 		        else{

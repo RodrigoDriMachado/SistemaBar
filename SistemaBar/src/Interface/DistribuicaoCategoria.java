@@ -9,7 +9,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
+
+import Negocio.BarException;
 import Negocio.CategoriaVIP;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -19,8 +22,8 @@ public class DistribuicaoCategoria extends JFrame {
 
 	private JPanel contentPane;
 	private ClntGUI cntrl;
-	private JTextField jTextFieldSILVER;
-	private JTextField jTextFieldGOLD;
+	private JTextField jTextFieldPercentualSILVER;
+	private JTextField jTextFieldPercentualGOLD;
 	private JTextField jTextFieldPLATINUM;
 
 	/**
@@ -44,15 +47,15 @@ public class DistribuicaoCategoria extends JFrame {
 		lblCategoria.setBounds(10, 31, 71, 14);
 		contentPane.add(lblCategoria);
 
-		jTextFieldSILVER = new JTextField();
-		jTextFieldSILVER.setBounds(10, 100, 55, 20);
-		contentPane.add(jTextFieldSILVER);
-		jTextFieldSILVER.setColumns(10);
+		jTextFieldPercentualSILVER = new JTextField();
+		jTextFieldPercentualSILVER.setBounds(10, 100, 55, 20);
+		contentPane.add(jTextFieldPercentualSILVER);
+		jTextFieldPercentualSILVER.setColumns(10);
 
-		jTextFieldGOLD = new JTextField();
-		jTextFieldGOLD.setBounds(10, 145, 55, 20);
-		contentPane.add(jTextFieldGOLD);
-		jTextFieldGOLD.setColumns(10);
+		jTextFieldPercentualGOLD = new JTextField();
+		jTextFieldPercentualGOLD.setBounds(10, 145, 55, 20);
+		contentPane.add(jTextFieldPercentualGOLD);
+		jTextFieldPercentualGOLD.setColumns(10);
 
 		jTextFieldPLATINUM = new JTextField();
 		jTextFieldPLATINUM.setBounds(10, 190, 55, 20);
@@ -87,46 +90,43 @@ public class DistribuicaoCategoria extends JFrame {
 				int calculo;
 				total = cntrl.totalClientes();
 				if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("SILVER")) {
+					try{
+					jTextFieldPercentualGOLD.setText(null);
+					jTextFieldPLATINUM.setText(null);
 					calculo = 100 * cntrl.quantidadeClientesCategoria("SILVER");
 					calculo = calculo / total;
-					jTextFieldSILVER.setText(calculo + "%");
+					jTextFieldPercentualSILVER.setText(calculo + "%");
+					}
+					catch (BarException ex) {
+						JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
+					}
 				} else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("GOLD")) {
+					try{
+					jTextFieldPercentualSILVER.setText(null);
+					jTextFieldPLATINUM.setText(null);
 					calculo = 100 * cntrl.quantidadeClientesCategoria("GOLD");
 					calculo = calculo / total;
-					jTextFieldGOLD.setText(calculo + "%");
+					jTextFieldPercentualGOLD.setText(calculo + "%");
+					}
+					catch (BarException ex) {
+						JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
+					}
 				} else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("PLATINUM")) {
+					try{
+					jTextFieldPercentualSILVER.setText(null);
+					jTextFieldPercentualGOLD.setText(null);
 					calculo = 100 * cntrl.quantidadeClientesCategoria("PLATINUM");
 					calculo = calculo / total;
 					jTextFieldPLATINUM.setText(calculo + "%");
+					}
+					catch (Exception ex) {
+						JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
+					}
 				}
 			}
 		});
 		jButtonValidar.setBounds(313, 27, 89, 23);
 		contentPane.add(jButtonValidar);
-
-		JButton btnCalcularTodos = new JButton("Calcular Todos");
-		btnCalcularTodos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int total;
-				int calculo;
-				total = cntrl.totalClientes();
-
-				calculo = 100 * cntrl.quantidadeClientesCategoria("SILVER");
-				calculo = calculo / total;
-				jTextFieldSILVER.setText(calculo + "%");
-
-				calculo = 100 * cntrl.quantidadeClientesCategoria("GOLD");
-				calculo = calculo / total;
-				jTextFieldGOLD.setText(calculo + "%");
-
-				calculo = 100 * cntrl.quantidadeClientesCategoria("PLATINUM");
-				calculo = calculo / total;
-				jTextFieldPLATINUM.setText(calculo + "%");
-
-			}
-		});
-		btnCalcularTodos.setBounds(300, 228, 116, 23);
-		contentPane.add(btnCalcularTodos);
 		cntrl = controle;
 
 	}

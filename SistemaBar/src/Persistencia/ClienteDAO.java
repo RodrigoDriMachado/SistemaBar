@@ -28,7 +28,7 @@ public class ClienteDAO implements CadastroClienteDAO {
     }
 
     @Override
-    public void add(Cliente cliente) {
+    public void add(Cliente cliente) throws DAOException {
         listaCliente.add(cliente);
 
     }
@@ -161,14 +161,15 @@ public class ClienteDAO implements CadastroClienteDAO {
         return listaClientePorCategoria;
     }
 
-    @Override
-    public int totalCliente() {
-        return this.listaCliente.size();
-    }
 
     @Override
     public boolean vazia() {
         return listaCliente.isEmpty();
     }
+
+	@Override
+	public int totalCliente() {
+		return listaCliente.size();
+	}
 
 }

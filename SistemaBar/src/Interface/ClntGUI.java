@@ -4,6 +4,8 @@ import Negocio.BarException;
 import Negocio.Cliente;
 import Negocio.ValidadorCliente;
 import Persistencia.ClienteDAO;
+import Persistencia.ClienteDAODerby;
+
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
@@ -15,11 +17,16 @@ public class ClntGUI {
 
     private CadastroClienteDAO cadCliente;
     private ClienteTxtFile clntTXT;
+    private CadastroClienteDAO cadClienteDerby;
 
     public ClntGUI() throws BarException {
+
         try {
-            cadCliente = new ClienteDAO();
+        	cadCliente = new ClienteDAO();
             clntTXT = new ClienteTxtFile();
+
+          //  cadClienteDerby = new ClienteDAODerby();
+
         } catch (Exception ex) {
             throw new BarException(ex);
         }
@@ -28,16 +35,24 @@ public class ClntGUI {
     public void salvar(String nome, String cpf, String sexo, String sIdade, String tpClnt, String categoria) throws BarException, NumberFormatException {
         int idade = Integer.parseInt(sIdade);
         if (!ValidadorCliente.getInstance().validaNome(nome)) {
-            throw new BarException("Nome inválido");
+            throw new BarException("Nome invalido");
         }
         if (!ValidadorCliente.getInstance().validaCpf(cpf)) {
-            throw new BarException("Cpf inválido");
+            throw new BarException("Cpf invalido");
         }
         if (!ValidadorCliente.getInstance().validaIdade(idade)) {
-            throw new BarException("Idade inválida");
+            throw new BarException("Idade invalida");
         }
         Cliente clnt = new Cliente(nome, cpf, sexo, idade, tpClnt, categoria);
-        cadCliente.add(clnt);
+
+        try {
+			cadCliente.add(clnt);
+			//cadClienteDerby.add(clnt);
+			//System.out.println(cadClienteDerby.listaCliente());
+		} catch (DAOException e) {
+        	throw new BarException(e);
+		}
+
         clntTXT.add(clnt);
     }
 
@@ -97,12 +112,22 @@ public class ClntGUI {
         return lmClienteCategoria;
     }
 
-    public int quantidadeClientesGenero(String genero) {
+    public int quantidadeClientesGenero(String genero) throws DAOException {
+    	try{
         return cadCliente.quantidadeClientesGenero(genero);
+    	}
+    	catch (DAOException e) {
+			throw new DAOException("Falha ao buscar quantidade");
+		}
     }
 
-    public int quantidadeClientesCategoria(String categoria) {
-        return cadCliente.quantidadeClienteCategoria(categoria);
+    public int quantidadeClientesCategoria(String categoria) throws BarException{
+        try {
+			return cadCliente.quantidadeClienteCategoria(categoria);
+		} catch (DAOException e) {
+			throw new BarException(e);
+		}
+
     }
 
     public int totalClientes() {
