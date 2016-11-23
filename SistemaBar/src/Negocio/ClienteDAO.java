@@ -1,9 +1,11 @@
-package Persistencia;
+package Negocio;
 
 import java.util.ArrayList;
-import Negocio.Cliente;
 import java.util.List;
-import Negocio.CadastroClienteDAO;
+
+import Persistencia.ClienteTxtFile;
+import Persistencia.DAOException;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +31,16 @@ public class ClienteDAO implements CadastroClienteDAO {
 
     @Override
     public void add(Cliente cliente) throws DAOException {
+    	Cliente clnt = pesquisaClienteCPF(cliente.getCpf());
+    	if(clnt != null){
+    		throw new DAOException("CPF já cadastrado");
+    	}
+    	if(cliente.getTipoCliente().equals("VIP") && cliente.getCategoria().equals(null)){
+    		throw new DAOException("Clientes VIP devem informar uma categoria!");
+    	}
+    	else{
         listaCliente.add(cliente);
+    	}
 
     }
 
@@ -55,10 +66,11 @@ public class ClienteDAO implements CadastroClienteDAO {
             for (int i = 0; i < listaCliente.size(); i++) {
                 if (listaCliente.get(i).getCpf().equals(cpf)) {
                     clnt = listaCliente.get(i);
+                    break;
                 }
             }
         } else if (listaCliente.isEmpty()) {
-            throw new DAOException("Lista Vazia");
+            clnt = null;
         }
         return clnt;
     }
@@ -170,6 +182,14 @@ public class ClienteDAO implements CadastroClienteDAO {
 	@Override
 	public int totalCliente() {
 		return listaCliente.size();
+	}
+
+	@Override
+	public void removeAll() throws DAOException {
+		for(int i=0;i<listaCliente.size();i++){
+			listaCliente.remove(i);
+		}
+
 	}
 
 }

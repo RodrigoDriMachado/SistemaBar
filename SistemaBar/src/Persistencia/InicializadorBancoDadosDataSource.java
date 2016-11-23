@@ -11,10 +11,10 @@ public class InicializadorBancoDadosDataSource {
 
 	    public static String DB_NAME = "cadastroCliente";
 	    public static String USER_NAME = "usuario";
-	    public static String PASSWORD = "senha";
+	    public static String PASSWORD = "password";
 	    private static DataSource dataSource;
-	    
-	    
+
+
 
 	    private static DataSource criarDataSource() throws Exception {
 	        if (dataSource == null) {
@@ -31,14 +31,13 @@ public class InicializadorBancoDadosDataSource {
 	    public static void criarBd() throws Exception {
 	        try (Connection con = criarDataSource().getConnection();
 	                Statement sta = con.createStatement()) {
-	            String sql = "CREATE TABLE Contribuintes ("
-	                    + "NOME VARCHAR(100) NOT NULL,"
-	                    + "CPF VARCHAR(20) PRIMARY KEY,"
-	                    + "GENERO VARCHAR(30) NOT NULL,"
-	                    + "IDADE NUMERIC(3) NOT NULL,"
-	                    + "TP_CLNT VARCHAR(30) NOT NULL,"
-	                    + "CT_CLNT VARCHAR(30) NULL"
-	                    + ")";
+	            String sql = " CREATE TABLE USUARIO.CLIENTE ("
+	            			+ "NOME VARCHAR(50), "
+	            			+ "CPF VARCHAR(20) NOT NULL,"
+	            			+ "GENERO VARCHAR(20), "
+	            			+ "IDADE NUMERIC(3), "
+	            			+ "TP_CLNT VARCHAR(20) NOT NULL, "
+	            			+ "CT_CLNT VARCHAR(20), PRIMARY KEY (CPF))";
 	            sta.executeUpdate(sql);
 	        }
 	    }
@@ -46,5 +45,4 @@ public class InicializadorBancoDadosDataSource {
 	    public static Connection conectarBd() throws Exception {
 	        return criarDataSource().getConnection();
 	    }
-
 }

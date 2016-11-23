@@ -1,6 +1,9 @@
 package Persistencia;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +16,9 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	public void add(Cliente cliente) throws DAOException {
 		int resultado = 0;
 		if (pesquisaClienteCPF(cliente.getCpf()) != null) {
-			throw new DAOException("CPF ja existe no banco de dados!!");
+			throw new DAOException("CPF ja cadastrado!!");
 		}
-		String sql = "INSERT INTO Clientes (NOME, CPF, GENERO, IDADE, TP_CLNT, CT_CLNT) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO Cliente (NOME, CPF, GENERO, IDADE, TP_CLNT, CT_CLNT) VALUES (?,?,?,?,?,?)";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				comando.setString(1, cliente.getNome());
@@ -55,7 +58,7 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	@Override
 	public Cliente pesquisaClienteCPF(String cpf) throws DAOException {
 		Cliente cliente = null;
-		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Clientes WHERE CPF = ?";
+		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Cliente WHERE CPF = ?";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				comando.setString(1, cpf);
@@ -77,7 +80,7 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	@Override
 	public int quantidadeClienteCategoria(String categoria) throws DAOException {
 		int quantidade = 0;
-		String sql = "SELECT COUNT(*) FROM Clientes WHERE CT_CLLNT = ?";
+		String sql = "SELECT COUNT(*) FROM Cliente WHERE CT_CLLNT = ?";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				comando.setString(1, categoria);
@@ -97,7 +100,7 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	@Override
 	public int quantidadeClientesGenero(String genero) throws DAOException {
 		int quantidade = 0;
-		String sql = "SELECT COUNT(*) FROM Clientes WHERE GENERO = ?";
+		String sql = "SELECT COUNT(*) FROM Cliente WHERE GENERO = ?";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				comando.setString(1, genero);
@@ -116,7 +119,7 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	@Override
 	public List<Cliente> listaCliente() throws DAOException {
 		List<Cliente> lst = new ArrayList<>();
-		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Clientes";
+		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Cliente";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				try (ResultSet resultado = comando.executeQuery()) {
@@ -136,7 +139,7 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	@Override
 	public List<Cliente> listaClientePorSexo(String sexo) throws DAOException {
 		List<Cliente> lst = new ArrayList<>();
-		String sql = "SELECT NOME, CPF, GENERO, IDADE, TP_CLNT, CT_CLNT FROM Clientes WHERE GENERO = ?";
+		String sql = "SELECT NOME, CPF, GENERO, IDADE, TP_CLNT, CT_CLNT FROM Cliente WHERE GENERO = ?";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				comando.setString(1, sexo);
@@ -157,7 +160,7 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	@Override
 	public List<Cliente> listaClientePorCategoria(String categoria) throws DAOException {
 		List<Cliente> lst = new ArrayList<>();
-		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Clientes WHERE CT_CLNT = ?";
+		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Cliente WHERE CT_CLNT = ?";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				comando.setString(1, categoria);
@@ -177,7 +180,7 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 
 	@Override
 	public boolean vazia() throws DAOException {
-		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Clientes";
+		String sql = "SELECT NOME, CPF,  GENERO, IDADE, TP_CLNT, CT_CLNT FROM Cliente";
 		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
 			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
 				try (ResultSet resultado = comando.executeQuery()) {
@@ -194,8 +197,23 @@ public class ClienteDAODerby implements CadastroClienteDAO {
 	}
 
 	@Override
-	public int totalCliente() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int totalCliente() throws DAOException {
+		return listaCliente().size();
+
+	}
+
+	@Override
+	public void removeAll() throws DAOException {
+		String sql = "DELETE FROM CLIENTE";
+		try (Connection conexao = InicializadorBancoDadosDataSource.conectarBd()) {
+			try (PreparedStatement comando = conexao.prepareStatement(sql)) {
+				try (ResultSet resultado = comando.executeQuery()) {
+					return;
+				}
+			}
+		} catch (Exception ex) {
+			throw new DAOException("Falha na busca. " + ex.getMessage());
+		}
+
 	}
 }

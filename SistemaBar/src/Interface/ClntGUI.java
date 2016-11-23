@@ -2,8 +2,8 @@ package Interface;
 
 import Negocio.BarException;
 import Negocio.Cliente;
+import Negocio.ClienteDAO;
 import Negocio.ValidadorCliente;
-import Persistencia.ClienteDAO;
 import Persistencia.ClienteDAODerby;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class ClntGUI {
         	cadCliente = new ClienteDAO();
             clntTXT = new ClienteTxtFile();
 
-          //  cadClienteDerby = new ClienteDAODerby();
+           cadClienteDerby = new ClienteDAODerby();
 
         } catch (Exception ex) {
             throw new BarException(ex);
@@ -47,7 +47,7 @@ public class ClntGUI {
 
         try {
 			cadCliente.add(clnt);
-			//cadClienteDerby.add(clnt);
+			cadClienteDerby.add(clnt);
 			//System.out.println(cadClienteDerby.listaCliente());
 		} catch (DAOException e) {
         	throw new BarException(e);
@@ -130,8 +130,12 @@ public class ClntGUI {
 
     }
 
-    public int totalClientes() {
-        return cadCliente.totalCliente();
+    public int totalClientes() throws BarException {
+        try {
+			return cadCliente.totalCliente();
+		} catch (DAOException e) {
+			throw new BarException(e);
+		}
     }
 
     public boolean validaCliente(String cpf) throws DAOException {

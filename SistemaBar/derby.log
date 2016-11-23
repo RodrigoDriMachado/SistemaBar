@@ -1,10 +1,13 @@
 ----------------------------------------------------------------
-Tue Nov 22 10:02:22 BRST 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instance a816c00e-0158-8bea-5cbe-000002ea6dd0 
-on database directory C:\Users\l61615\git\SistemaBar\SistemaBar\cadastroCliente  with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Wed Nov 23 15:17:45 BRST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-0158-9231-78cc-000002ee1d30 
+on database directory C:\Users\l61615\git\SistemaBar\SistemaBar\cadastroCliente with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/l61615/git/SistemaBar/SistemaBar/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_77-b03
 user.dir=C:\Users\l61615\git\SistemaBar\SistemaBar
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

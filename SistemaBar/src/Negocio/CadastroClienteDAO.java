@@ -22,7 +22,10 @@ public interface CadastroClienteDAO {
 
     public List<Cliente> listaClientePorCategoria(String categoria) throws DAOException;
 
-    public int totalCliente();
+    public int totalCliente() throws DAOException;
 
     public boolean vazia() throws DAOException;
+
+    public void removeAll() throws DAOException;
+
 }

@@ -86,9 +86,14 @@ public class DistribuicaoCategoria extends JFrame {
 		JButton jButtonValidar = new JButton("Calcular");
 		jButtonValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int total;
+				int total=0;
 				int calculo;
-				total = cntrl.totalClientes();
+				try {
+					total = cntrl.totalClientes();
+				} catch (BarException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("SILVER")) {
 					try{
 					jTextFieldPercentualGOLD.setText(null);
