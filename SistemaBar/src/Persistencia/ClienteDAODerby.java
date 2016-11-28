@@ -2,19 +2,25 @@ package Persistencia;
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 import Negocio.CadastroClienteDAO;
 import Negocio.Cliente;
 
 public class ClienteDAODerby implements CadastroClienteDAO {
 
+
+	
 	@Override
 	public void add(Cliente cliente) throws DAOException {
 		int resultado = 0;
+		
 		if (pesquisaClienteCPF(cliente.getCpf()) != null) {
 			throw new DAOException("CPF ja cadastrado!!");
 		}

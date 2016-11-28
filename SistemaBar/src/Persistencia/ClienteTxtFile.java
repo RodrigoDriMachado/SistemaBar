@@ -8,11 +8,11 @@ import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 public class ClienteTxtFile {
-    
-    private static final String arquivoEntrada = "entrada.dat";
-    private static final String arquivoSaida = "saida.dat";
+
+    private static final String arquivoEntrada = "entrada.txt";
+    private static final String arquivoSaida = "saida.txt";
     private List<Cliente> listaCliente;
-    
+
     private void saveDataEntrada() throws IOException {
        FileWriter fw = new FileWriter(arquivoEntrada);
         for (Cliente c : listaCliente) {
@@ -21,7 +21,7 @@ public class ClienteTxtFile {
         }
         fw.close();
     }
-    
+
     private void loadDataEntrada() throws IOException {
         FileReader fr = new FileReader(arquivoEntrada);
         BufferedReader br = new BufferedReader(fr);
@@ -30,30 +30,30 @@ public class ClienteTxtFile {
             StringTokenizer st = new StringTokenizer(line, ",");
             String nome = st.nextToken();
             String cpf = st.nextToken();
-            
+
             int idade = 0;
-            
+
             try {
                 idade = Integer.parseInt(st.nextToken());
-                
+
             } catch (NumberFormatException e) {
-                throw new IOException("Formato de dados inválido", e);
+                throw new IOException("Formato de dados invlido", e);
             }
             String sexo = st.nextToken();
             String tipoCliente = st.nextToken();
             String categoria = st.nextToken();
-            
+
             try {
                 Cliente clnt = new Cliente(nome, cpf, sexo, idade, tipoCliente, categoria);
                 listaCliente.add(clnt);
             } catch (IllegalArgumentException e) {
-                throw new IOException("Valor de dados inválido", e);
+                throw new IOException("Valor de dados invalido", e);
             }
             line = br.readLine();
         }
         br.close();
     }
-    
+
     private void saveDataSaida(Cliente clnt) throws IOException {
         FileWriter fw = new FileWriter(arquivoSaida);
         for (Cliente c : listaCliente) {
@@ -63,7 +63,7 @@ public class ClienteTxtFile {
         }
         fw.close();
     }
-    
+
     private void loadDataSaida() throws IOException {
         FileReader fr = new FileReader(arquivoEntrada);
         BufferedReader br = new BufferedReader(fr);
@@ -72,24 +72,24 @@ public class ClienteTxtFile {
             StringTokenizer st = new StringTokenizer(line, ",");
             String nome = st.nextToken();
             String cpf = st.nextToken();
-            
+
             int idade = 0;
-            
+
             try {
                 idade = Integer.parseInt(st.nextToken());
-                
+
             } catch (NumberFormatException e) {
-                throw new IOException("Formato de dados inválido", e);
+                throw new IOException("Formato de dados invlido", e);
             }
             String sexo = st.nextToken();
             String tipoCliente = st.nextToken();
             String categoria = st.nextToken();
-            
+
             try {
                 Cliente clnt = new Cliente(nome, cpf, sexo, idade, tipoCliente, categoria);
                 listaCliente.add(clnt);
             } catch (IllegalArgumentException e) {
-                throw new IOException("Valor de dados inválido", e);
+                throw new IOException("Valor de dados invalido", e);
             }
             line = br.readLine();
         }
@@ -101,25 +101,25 @@ public class ClienteTxtFile {
         File fentrada = new File(arquivoEntrada);
         File fsaida = new File(arquivoSaida);
     }
-  
+
     public void add(Cliente cliente) {
         listaCliente.add(cliente);
         try {
             saveDataEntrada();
         } catch (IOException ex) {
             Logger.getLogger(ClienteTxtFile.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
-    
+
     public void removeCliente(Cliente cliente) throws DAOException {
         try {
             saveDataSaida(cliente);
         } catch (IOException mensagem) {
            throw new DAOException("Erro ao salvar arquivo!");
-        }        
+        }
         listaCliente.remove(cliente);
     }
 
- 
-    
+
+
 }

@@ -1,18 +1,15 @@
 package Testes;
 
 import static org.junit.Assert.*;
-
 import java.io.IOException;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import Negocio.CadastroClienteDAO;
-import Negocio.CategoriaVIP;
 import Negocio.Cliente;
 import Negocio.ClienteDAO;
 import Persistencia.DAOException;
+
 
 public class RegistrarEntradaTeste {
 
@@ -22,12 +19,12 @@ public class RegistrarEntradaTeste {
 	@Before
 	public void setUP() throws IOException {
 		cadClnt = new ClienteDAO();
-		clnt = new Cliente("Rodrigo Machado", "69004804625", "Masculino", 24, "VIP", "Silver");
+		clnt = new Cliente("Joaquim Davi Fernandes", "69004804625", "Masculino", 24, "VIP", "Silver");
 	}
 
 	@Test
 	public void positiveCadastroClienteComum() throws DAOException{
-		clnt  = new Cliente("Rodrgio M", "32581353392", "Masculino", 25, "Comum", null);
+		clnt  = new Cliente("Joao Enzo Ryan Freitas", "32581353392", "Masculino", 25, "Comum", null);
 		cadClnt.add(clnt);
 		assertEquals(clnt, cadClnt.pesquisaClienteCPF("32581353392"));
 	}
@@ -58,17 +55,17 @@ public class RegistrarEntradaTeste {
 
 	@Test
 	public void positiveCadastroClienteVIPPlatinum() throws DAOException{
-		clnt  = new Cliente("Sarah Maitê Campos", "69111113073", "Feminino", 46, "VIP", "Gold");
+		clnt  = new Cliente("Sarah Maitê Campos", "69111113073", "Feminino", 46, "VIP", "Platinum");
 		cadClnt.add(clnt);
-		assertEquals(clnt, cadClnt.pesquisaClienteCPF("83326024088"));
+		assertEquals(clnt, cadClnt.pesquisaClienteCPF("69111113073"));
 	}
 
 
 	@Test
 	public void negativeCadastroClienteVIPPlatinum() throws DAOException{
-		clnt  = new Cliente("Natália Stefany Rocha", "69111113073", "Feminino", 38, "VIP", "Platinum");
+		clnt  = new Cliente("Natalia Stefany Rocha", "69111113073", "Feminino", 38, "VIP", "Platinum");
 		cadClnt.add(clnt);
-		assertEquals("Natália Stefany Rocha", cadClnt.pesquisaClienteCPF(clnt.getCpf()).getNome());
+		assertEquals("Natalia Stefany Rocha", cadClnt.pesquisaClienteCPF(clnt.getCpf()).getNome());
 	}
 
 

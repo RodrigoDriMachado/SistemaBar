@@ -6,6 +6,7 @@ import Negocio.ClienteDAO;
 import Negocio.ValidadorCliente;
 import Persistencia.ClienteDAODerby;
 
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
@@ -48,7 +49,6 @@ public class ClntGUI {
         try {
 			cadCliente.add(clnt);
 			cadClienteDerby.add(clnt);
-			//System.out.println(cadClienteDerby.listaCliente());
 		} catch (DAOException e) {
         	throw new BarException(e);
 		}
