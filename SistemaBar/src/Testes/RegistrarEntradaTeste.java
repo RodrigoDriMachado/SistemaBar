@@ -17,15 +17,17 @@ public class RegistrarEntradaTeste {
 	CadastroClienteDAO cadClnt;
 
 	@Before
-	public void setUP() throws IOException {
+	public void setUP() throws IOException, DAOException {
 		cadClnt = new ClienteDAO();
 		clnt = new Cliente("Joaquim Davi Fernandes", "69004804625", "Masculino", 24, "VIP", "Silver");
+		cadClnt.add(clnt);
+		clnt  = new Cliente("Joao Enzo Ryan Freitas", "32581353392", "Masculino", 25, "Comum", null);
+		cadClnt.add(clnt);
 	}
 
 	@Test
 	public void positiveCadastroClienteComum() throws DAOException{
-		clnt  = new Cliente("Joao Enzo Ryan Freitas", "32581353392", "Masculino", 25, "Comum", null);
-		cadClnt.add(clnt);
+
 		assertEquals(clnt, cadClnt.pesquisaClienteCPF("32581353392"));
 	}
 

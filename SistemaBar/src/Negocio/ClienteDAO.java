@@ -35,7 +35,7 @@ public class ClienteDAO implements CadastroClienteDAO {
     	if(clnt != null){
     		throw new DAOException("CPF já cadastrado");
     	}
-    	if(cliente.getTipoCliente().equals("VIP") && cliente.getCategoria().equals(null)){
+    	if(cliente.getTipoCliente().equalsIgnoreCase("VIP") && cliente.getCategoria().equals(null)){
     		throw new DAOException("Clientes VIP devem informar uma categoria!");
     	}
     	else{
@@ -78,16 +78,16 @@ public class ClienteDAO implements CadastroClienteDAO {
     @Override
     public int quantidadeClientesGenero(String genero) {
         int cont = 0;
-        if (genero.equals("Feminino")) {
+        if (genero.equalsIgnoreCase("Feminino")) {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getSexo().equals("Feminino")) {
+                if (cliente.getSexo().equalsIgnoreCase("Feminino")) {
                     cont++;
                 }
             }
 
         } else if (genero.equals("Masculino")) {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getSexo().equals("Masculino")) {
+                if (cliente.getSexo().equalsIgnoreCase("Masculino")) {
                     cont++;
                 }
             }
@@ -98,23 +98,24 @@ public class ClienteDAO implements CadastroClienteDAO {
     @Override
     public int quantidadeClienteCategoria(String categoria) {
         int cont = 0;
-        if (categoria.equals("SILVER")) {
+        if (categoria.equalsIgnoreCase("Silver")) {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getCategoria().equals("SILVER")) {
+                if (cliente.getCategoria().equalsIgnoreCase("Silver")) {
                     cont++;
+
                 }
             }
 
-        } else if (categoria.equals("GOLD")) {
+        } else if (categoria.equals("Gold")) {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getCategoria().equals("GOLD")) {
+                if (cliente.getCategoria().equalsIgnoreCase("Gold")) {
                     cont++;
                 }
             }
         }
-        else if(categoria.equals("PLATINUM")){
+        else if(categoria.equalsIgnoreCase("Platinum")){
             for(Cliente cliente : listaCliente){
-                if(cliente.getCategoria().equals("PLATINUM")){
+                if(cliente.getCategoria().equalsIgnoreCase("Platinum")){
                     cont++;
                 }
             }
@@ -130,15 +131,15 @@ public class ClienteDAO implements CadastroClienteDAO {
     @Override
     public List<Cliente> listaClientePorSexo(String sexo) {
         List<Cliente> listaClientePorSexo = new ArrayList();
-        if (sexo.equals("Masculino")) {
+        if (sexo.equalsIgnoreCase("Masculino")) {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getSexo().equals("Masculino")) {
+                if (cliente.getSexo().equalsIgnoreCase("Masculino")) {
                     listaClientePorSexo.add(cliente);
                 }
             }
         } else {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getSexo().equals("Feminino")) {
+                if (cliente.getSexo().equalsIgnoreCase("Feminino")) {
                     listaClientePorSexo.add(cliente);
                 }
             }
@@ -149,23 +150,23 @@ public class ClienteDAO implements CadastroClienteDAO {
     @Override
     public List<Cliente> listaClientePorCategoria(String categoria) {
         List<Cliente> listaClientePorCategoria = new ArrayList<Cliente>();
-        if (categoria.equals("SILVER")) {
+        if (categoria.equalsIgnoreCase("Silver")) {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getCategoria().equals("SILVER")) {
+                if (cliente.getCategoria().equalsIgnoreCase("Silver")) {
                 	listaClientePorCategoria.add(cliente);
                 }
             }
 
-        } else if (categoria.equals("GOLD")) {
+        } else if (categoria.equalsIgnoreCase("Gold")) {
             for (Cliente cliente : listaCliente) {
-                if (cliente.getCategoria().equals("GOLD")) {
+                if (cliente.getCategoria().equalsIgnoreCase("Gold")) {
                 	listaClientePorCategoria.add(cliente);;
                 }
             }
         }
-        else if(categoria.equals("PLATINUM")){
+        else if(categoria.equalsIgnoreCase("Platinum")){
             for(Cliente cliente : listaCliente){
-                if(cliente.getCategoria().equals("PLATINUM")){
+                if(cliente.getCategoria().equalsIgnoreCase("Platinum")){
                 	listaClientePorCategoria.add(cliente);;
                 }
             }

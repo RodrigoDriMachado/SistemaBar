@@ -94,33 +94,33 @@ public class DistribuicaoCategoria extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("SILVER")) {
+				if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equalsIgnoreCase("Silver")) {
 					try{
 					jTextFieldPercentualGOLD.setText(null);
 					jTextFieldPLATINUM.setText(null);
-					calculo = 100 * cntrl.quantidadeClientesCategoria("SILVER");
+					calculo = 100 * cntrl.quantidadeClientesCategoria("Silver");
 					calculo = calculo / total;
 					jTextFieldPercentualSILVER.setText(calculo + "%");
 					}
 					catch (BarException ex) {
 						JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
 					}
-				} else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("GOLD")) {
+				} else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equalsIgnoreCase("Gold")) {
 					try{
 					jTextFieldPercentualSILVER.setText(null);
 					jTextFieldPLATINUM.setText(null);
-					calculo = 100 * cntrl.quantidadeClientesCategoria("GOLD");
+					calculo = 100 * cntrl.quantidadeClientesCategoria("Gold");
 					calculo = calculo / total;
 					jTextFieldPercentualGOLD.setText(calculo + "%");
 					}
 					catch (BarException ex) {
 						JOptionPane.showMessageDialog(contentPane, "Falha ao calcular  " + ex.getMessage());
 					}
-				} else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("PLATINUM")) {
+				} else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equalsIgnoreCase("Platinum")) {
 					try{
 					jTextFieldPercentualSILVER.setText(null);
 					jTextFieldPercentualGOLD.setText(null);
-					calculo = 100 * cntrl.quantidadeClientesCategoria("PLATINUM");
+					calculo = 100 * cntrl.quantidadeClientesCategoria("Platinum");
 					calculo = calculo / total;
 					jTextFieldPLATINUM.setText(calculo + "%");
 					}
