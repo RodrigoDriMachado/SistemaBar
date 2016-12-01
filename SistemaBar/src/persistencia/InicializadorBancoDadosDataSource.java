@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Statement;
 import javax.sql.DataSource;
-import org.apache.derby.iapi.sql.ResultSet;
+import java.sql.ResultSet;
 import org.apache.derby.jdbc.EmbeddedDataSource;
 
 public class InicializadorBancoDadosDataSource {
@@ -16,14 +16,12 @@ public class InicializadorBancoDadosDataSource {
 	private static DataSource dataSource;
 
 	private static Connection connection = null;
-	private Statement statement = null;
-	private ResultSet resultSet = null;
 
 	public static void validaObjetos() {
 		try {
 			connection = conectarBd();
 			DatabaseMetaData meta = connection.getMetaData();
-			java.sql.ResultSet res2 = meta.getSchemas();
+			ResultSet res2 = meta.getSchemas();
 			boolean schema = false;
 			while (res2.next()) {
 				if (res2.getString("TABLE_SCHEM").compareTo("USUARIO") == 0) {
@@ -34,7 +32,7 @@ public class InicializadorBancoDadosDataSource {
 				createSchema();
 				createTable();
 			} else {
-				java.sql.ResultSet res = meta.getTables(null, null, null, new String[] { "TABLE" });
+				ResultSet res = meta.getTables(null, null, null, new String[] { "TABLE" });
 				boolean table = false;
 				while (res.next()) {
 					if (res.getString("TABLE_NAME").compareTo("CLIENTE") == 0) {

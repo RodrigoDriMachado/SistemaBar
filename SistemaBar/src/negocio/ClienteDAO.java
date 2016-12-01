@@ -1,24 +1,18 @@
 package negocio;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import persistencia.ClienteTxtFile;
 import persistencia.DAOException;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class ClienteDAO implements CadastroClienteDAO {
 
-    private ClienteTxtFile clntTxt;
     private List<Cliente> listaCliente;
     private static ClienteDAO cad = null;
 
 
     public ClienteDAO() throws IOException {
-        clntTxt = new ClienteTxtFile();
         listaCliente = new ArrayList<>();
     }
 
@@ -60,7 +54,6 @@ public class ClienteDAO implements CadastroClienteDAO {
 
     @Override
     public Cliente pesquisaClienteCPF(String cpf) throws DAOException {
-        boolean achou = false;
         Cliente clnt = null;
         if (!listaCliente.isEmpty()) {
             for (int i = 0; i < listaCliente.size(); i++) {
@@ -69,8 +62,6 @@ public class ClienteDAO implements CadastroClienteDAO {
                     break;
                 }
             }
-        } else if (listaCliente.isEmpty()) {
-            clnt = null;
         }
         return clnt;
     }
@@ -85,7 +76,7 @@ public class ClienteDAO implements CadastroClienteDAO {
                 }
             }
 
-        } else if (genero.equals("Masculino")) {
+        } else if (genero.equalsIgnoreCase("Masculino")) {
             for (Cliente cliente : listaCliente) {
                 if (cliente.getSexo().equalsIgnoreCase("Masculino")) {
                     cont++;
@@ -102,11 +93,10 @@ public class ClienteDAO implements CadastroClienteDAO {
             for (Cliente cliente : listaCliente) {
                 if (cliente.getCategoria().equalsIgnoreCase("Silver")) {
                     cont++;
-
                 }
             }
 
-        } else if (categoria.equals("Gold")) {
+        } else if (categoria.equalsIgnoreCase("Gold")) {
             for (Cliente cliente : listaCliente) {
                 if (cliente.getCategoria().equalsIgnoreCase("Gold")) {
                     cont++;
@@ -130,7 +120,7 @@ public class ClienteDAO implements CadastroClienteDAO {
 
     @Override
     public List<Cliente> listaClientePorSexo(String sexo) {
-        List<Cliente> listaClientePorSexo = new ArrayList();
+        List<Cliente> listaClientePorSexo = new ArrayList<Cliente>();
         if (sexo.equalsIgnoreCase("Masculino")) {
             for (Cliente cliente : listaCliente) {
                 if (cliente.getSexo().equalsIgnoreCase("Masculino")) {

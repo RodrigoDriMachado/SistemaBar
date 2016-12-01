@@ -31,19 +31,18 @@ public class ValidadorCliente {
     }
 
     public boolean validaIdade(int idade) {
-        if (idade < 0 || idade > 150) {
+        if (idade < 18 || idade > 150) {
             return false;
         }
         return true;
     }
-    
-     public boolean validaTipoCliente(String tipo, String categoria) {
-        if (tipo.equals("COMUM")==true && categoria.equals(" ")==false) {
-            return false;
-        }
-        else if(tipo.equals("VIP")==true && categoria.equals(" ")==true ){
-            return false;
-        }
-        return true;
+
+    public boolean validaSexo(String sexo){
+    	if(sexo != null && (sexo.equalsIgnoreCase("Masculino") || sexo.equalsIgnoreCase("Feminino")))
+    		return true;
+    	else
+    		return false;
     }
+
+
 }

@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Nov 30 15:14:14 BRST 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-0158-b63a-c0e8-00000373e738 
+Thu Dec 01 14:49:55 BRST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-0158-bb4a-dbf0-0000037404d0 
 on database directory C:\Users\l61615\git\SistemaBar\SistemaBar\cadastroCliente with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/l61615/git/SistemaBar/SistemaBar/derby.jar
 java.vendor=Oracle Corporation

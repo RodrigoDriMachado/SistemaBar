@@ -25,7 +25,6 @@ public class RegistrarEntrada extends JFrame {
 	 */
 	public RegistrarEntrada(ClntGUI controler) {
 		setTitle("Registrar Entrada");
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 370);
 		contentPane = new JPanel();
@@ -39,7 +38,7 @@ public class RegistrarEntrada extends JFrame {
 		contentPane.add(jLabelNome);
 
 		jTextNome = new JTextField();
-		jTextNome.setBounds(71, 22, 240, 20);
+		jTextNome.setBounds(71, 22, 300, 20);
 		contentPane.add(jTextNome);
 		jTextNome.setColumns(10);
 
@@ -49,7 +48,7 @@ public class RegistrarEntrada extends JFrame {
 		contentPane.add(jLabelCPF);
 
 		jTextCPF = new JTextField();
-		jTextCPF.setBounds(71, 78, 240, 20);
+		jTextCPF.setBounds(71, 78, 300, 20);
 		contentPane.add(jTextCPF);
 		jTextCPF.setColumns(10);
 
@@ -85,11 +84,11 @@ public class RegistrarEntrada extends JFrame {
 		jCBTipoCliente.setBounds(85, 218, 90, 20);
 		jCBTipoCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 if (((String) (jCBTipoCliente.getSelectedItem())).equals("VIP") == true) {
-					 jCBCategoria.enable();
+				 if (((String) (jCBTipoCliente.getSelectedItem())).equals("VIP")) {
+					 jCBCategoria.setEnabled(true);
 			        } else {
 			        	jCBCategoria.setSelectedIndex(0);
-			        	jCBCategoria.disable();
+			        	jCBCategoria.setEnabled(false);
 			        }
 			}
 		});
@@ -97,7 +96,7 @@ public class RegistrarEntrada extends JFrame {
 				JLabel jLabelTipoCliente = new JLabel("Tipo Cliente");
 				jLabelTipoCliente.setBounds(7, 221, 68, 14);
 				contentPane.add(jLabelTipoCliente);
-		jCBTipoCliente.setModel(new DefaultComboBoxModel(new String[] {"", "Comum", "VIP"}));
+		jCBTipoCliente.setModel(new DefaultComboBoxModel(new String[] {"Comum", "VIP"}));
 		contentPane.add(jCBTipoCliente);
 
 		JButton btnVoltar = new JButton("Voltar");
@@ -153,7 +152,7 @@ public class RegistrarEntrada extends JFrame {
 
 
 		this.cntrl = controler;
-		 jCBCategoria.disable();
+		 jCBCategoria.setEnabled(false);
 
 	}
 

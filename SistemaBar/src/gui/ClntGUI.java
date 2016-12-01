@@ -1,7 +1,7 @@
 package gui;
 
-import java.sql.SQLException;
 import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
@@ -35,15 +35,16 @@ public class ClntGUI {
 
     public void salvar(String nome, String cpf, String sexo, String sIdade, String tpClnt, String categoria) throws BarException, NumberFormatException {
         int idade = Integer.parseInt(sIdade);
-        if (!ValidadorCliente.getInstance().validaNome(nome)) {
+        if (!ValidadorCliente.getInstance().validaNome(nome))
             throw new BarException("Nome invalido");
-        }
-        if (!ValidadorCliente.getInstance().validaCpf(cpf)) {
+        if (!ValidadorCliente.getInstance().validaCpf(cpf))
             throw new BarException("Cpf invalido");
-        }
-        if (!ValidadorCliente.getInstance().validaIdade(idade)) {
+        if (!ValidadorCliente.getInstance().validaIdade(idade))
             throw new BarException("Idade invalida");
-        }
+        if(!ValidadorCliente.getInstance().validaSexo(sexo))
+        	throw new BarException("Opção sexo inválida");
+       /* if(!ValidadorCliente.getInstance().validaTipoCliente(tpClnt, categoria))
+        	throw new BarException("Tipo e categoria do cliente não são compatíveis");*/
         Cliente clnt = new Cliente(nome, cpf, sexo, idade, tpClnt, categoria);
 
         try {
@@ -70,8 +71,8 @@ public class ClntGUI {
         return retorno;
     }
 
-    public ListModel getClientes() throws BarException {
-        DefaultListModel lmCliente = new DefaultListModel();
+    public ListModel<Cliente> getClientes() throws BarException {
+        DefaultListModel<Cliente> lmCliente = new DefaultListModel<Cliente>();
         List<Cliente> clientes;
         try {
             clientes = cadCliente.listaCliente();
@@ -84,8 +85,8 @@ public class ClntGUI {
         return lmCliente;
     }
 
-    public ListModel getClientesGenero(String genero) throws BarException {
-        DefaultListModel lmClienteGenero = new DefaultListModel();
+    public ListModel<Cliente> getClientesGenero(String genero) throws BarException {
+        DefaultListModel<Cliente> lmClienteGenero = new DefaultListModel<Cliente>();
         List<Cliente> clientesGenero;
         try {
             clientesGenero = cadCliente.listaClientePorSexo(genero);
@@ -98,8 +99,8 @@ public class ClntGUI {
         return lmClienteGenero;
     }
 
-    public ListModel getClientesCategoria(String categoria) throws BarException {
-        DefaultListModel lmClienteCategoria = new DefaultListModel();
+    public ListModel<Cliente> getClientesCategoria(String categoria) throws BarException {
+        DefaultListModel<Cliente> lmClienteCategoria = new DefaultListModel<Cliente>();
         List<Cliente> clientesCategoria;
         try {
             clientesCategoria = cadCliente.listaClientePorCategoria(categoria);

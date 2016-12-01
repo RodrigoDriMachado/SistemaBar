@@ -61,10 +61,9 @@ public class ListarClientePorGenero extends JFrame {
 		        try {
 		            if (jCBSexo.getSelectedItem().equals("Masculino")) {
 		            	jListClienteGenero.setModel(cntrl.getClientesGenero("Masculino"));
-
 		            } else if (jCBSexo.getSelectedItem().equals("Feminino")) {
 		            	jListClienteGenero.setModel(cntrl.getClientesGenero("Feminino"));
-		            }
+		             }
 		        } catch (Exception e1) {
 		            JOptionPane.showMessageDialog(contentPane, "Falha na busca. " + e1.getMessage());
 		        }
