@@ -29,15 +29,6 @@ public class RegistrarEntradaTeste {
 		assertEquals(clnt, cadClnt.pesquisaClienteCPF("32581353392"));
 	}
 
-
-	@Test
-	public void negativeCadastroClienteComum() throws DAOException{
-		clnt  = new Cliente("Paulo Kaique Kevin Souza", "69004804625", "Masculino", 41, "Comum", null);
-		cadClnt.add(clnt);
-		assertEquals("Paulo Kaique Kevin Souza", cadClnt.pesquisaClienteCPF(clnt.getCpf()).getNome());
-	}
-
-
 	@Test
 	public void positiveCadastroClienteVIPSilver() throws DAOException{
 		clnt  = new Cliente("Joana Larissa Costa", "83326024088", "Feminino", 45, "VIP", "Silver");
@@ -47,6 +38,19 @@ public class RegistrarEntradaTeste {
 
 
 	@Test
+	public void positiveCadastroClienteVIPPlatinum() throws DAOException{
+		clnt  = new Cliente("Sarah Maitê Campos", "69111113073", "Feminino", 46, "VIP", "Platinum");
+		cadClnt.add(clnt);
+		assertEquals(clnt, cadClnt.pesquisaClienteCPF("69111113073"));
+	}
+
+	@Test
+	public void negativeCadastroClienteComum() throws DAOException{
+		clnt  = new Cliente("Paulo Kaique Kevin Souza", "69004804625", "Masculino", 41, "Comum", null);
+		cadClnt.add(clnt);
+		assertEquals("Paulo Kaique Kevin Souza", cadClnt.pesquisaClienteCPF(clnt.getCpf()).getNome());
+	}
+	@Test
 	public void negativeCadastroClienteVIPSilver() throws DAOException{
 		clnt  = new Cliente("Elias Ian Moura", "83326024088", "Feminino", 37, "VIP", "Gold");
 		cadClnt.add(clnt);
@@ -54,20 +58,10 @@ public class RegistrarEntradaTeste {
 	}
 
 	@Test
-	public void positiveCadastroClienteVIPPlatinum() throws DAOException{
-		clnt  = new Cliente("Sarah Maitê Campos", "69111113073", "Feminino", 46, "VIP", "Platinum");
-		cadClnt.add(clnt);
-		assertEquals(clnt, cadClnt.pesquisaClienteCPF("69111113073"));
-	}
-
-
-	@Test
 	public void negativeCadastroClienteVIPPlatinum() throws DAOException{
 		clnt  = new Cliente("Natalia Stefany Rocha", "69111113073", "Feminino", 38, "VIP", "Platinum");
 		cadClnt.add(clnt);
 		assertEquals("Natalia Stefany Rocha", cadClnt.pesquisaClienteCPF(clnt.getCpf()).getNome());
 	}
-
-
 
 }

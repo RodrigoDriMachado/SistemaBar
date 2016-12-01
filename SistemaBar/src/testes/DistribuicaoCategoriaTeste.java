@@ -61,8 +61,7 @@ public class DistribuicaoCategoriaTeste {
 
 	@Test
 	public void positiveDisposicaoGoldTeste() throws DAOException {
-		clnt = new Cliente("Benício Caio Cardoso", "15910481843", "Masculino", 34, "VIP",
-				CategoriaVIP.Gold.getValueGold());
+		clnt = new Cliente("Benício Caio Cardoso", "15910481843", "Masculino", 34, "VIP",CategoriaVIP.Gold.getValueGold());
 		cadClnt.add(clnt);
 		listaGold.add(clnt);
 		total = cadClnt.totalCliente();

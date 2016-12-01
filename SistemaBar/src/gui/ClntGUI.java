@@ -42,9 +42,7 @@ public class ClntGUI {
         if (!ValidadorCliente.getInstance().validaIdade(idade))
             throw new BarException("Idade invalida");
         if(!ValidadorCliente.getInstance().validaSexo(sexo))
-        	throw new BarException("Opção sexo inválida");
-       /* if(!ValidadorCliente.getInstance().validaTipoCliente(tpClnt, categoria))
-        	throw new BarException("Tipo e categoria do cliente não são compatíveis");*/
+        	throw new BarException("Opcao sexo invalida");
         Cliente clnt = new Cliente(nome, cpf, sexo, idade, tpClnt, categoria);
 
         try {

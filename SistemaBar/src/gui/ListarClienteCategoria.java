@@ -64,12 +64,12 @@ public class ListarClienteCategoria extends JFrame {
 		btnListar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		        try {
-		        	if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("SILVER")){
-		        		jListCategoria.setModel(cntrl.getClientesCategoria("SILVER"));
-		            } else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("GOLD")) {
-		            	jListCategoria.setModel(cntrl.getClientesCategoria("GOLD"));
-		            } else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equals("PLATINUM")) {
-		            	jListCategoria.setModel(cntrl.getClientesCategoria("PLATINUM"));
+		        	if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equalsIgnoreCase("Silver")){
+		        		jListCategoria.setModel(cntrl.getClientesCategoria("Silver"));
+		            } else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equalsIgnoreCase("Gold")) {
+		            	jListCategoria.setModel(cntrl.getClientesCategoria("Gold"));
+		            } else if (((CategoriaVIP) jCBCategoria.getSelectedItem()).toString().equalsIgnoreCase("Platinum")) {
+		            	jListCategoria.setModel(cntrl.getClientesCategoria("Platinum"));
 		            }
 		        } catch (Exception e1) {
 		            JOptionPane.showMessageDialog(contentPane, "Falha na busca. " + e1.getMessage());

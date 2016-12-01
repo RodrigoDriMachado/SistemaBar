@@ -1,1 +1,3 @@
-Bianca Helena Olivia Nascimento Pinto,88763036690,52,Masculino,Comum,null
+Carlos Eduardo Raul Nascimento,20546525806,18,Masculino,VIP,Silver
+Rodrigo Machado,20546525807,78,Masculino,VIP,Gold
+Rodrigo Machado,20546525808,23,Masculino,VIP,Platinum

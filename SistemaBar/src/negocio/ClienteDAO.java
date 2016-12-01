@@ -13,7 +13,7 @@ public class ClienteDAO implements CadastroClienteDAO {
 
 
     public ClienteDAO() throws IOException {
-        listaCliente = new ArrayList<>();
+        listaCliente = new ArrayList<Cliente>();
     }
 
     public static ClienteDAO getInstance() throws IOException {
