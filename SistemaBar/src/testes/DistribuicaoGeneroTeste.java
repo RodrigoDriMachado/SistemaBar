@@ -1,6 +1,6 @@
 package testes;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,16 @@ public class DistribuicaoGeneroTeste {
 	private List<Cliente> listaMasculino;
 	private List<Cliente> listaFeminino;
 	private int total;
+	int calculo;
+	int distribuicao;
 
 	@Before
 	public void setUp() throws Exception {
 		cadClnt = new ClienteDAO();
 		listaMasculino = new ArrayList<>();
 		listaFeminino = new ArrayList<>();
+		calculo = 0;
+		distribuicao = 0;
 
 		clnt = new Cliente("Alice Emanuelly Fernanda Mendes", "85288775400", "Feminino", 34, "VIP", CategoriaVIP.Platinum.getValuePlatinum());
 		cadClnt.add(clnt);
@@ -49,10 +53,8 @@ public class DistribuicaoGeneroTeste {
 	}
 
 	@Test
-	public void testeDisposicaoMasculino() throws DAOException {
-		total = cadClnt.listaCliente().size();
-		int distribuicao;
-		int calculo;
+	public void positiveDisposicaoClienteMasculinoTeste() throws DAOException {
+		total = cadClnt.totalCliente();
 		distribuicao = 100 * listaMasculino.size();
 		distribuicao = distribuicao / total;
 		calculo = 100 * cadClnt.quantidadeClientesGenero("Masculino");
@@ -61,15 +63,31 @@ public class DistribuicaoGeneroTeste {
 	}
 
 	@Test
-	public void testeDisposicaoFeminino() throws DAOException {
-		total = cadClnt.listaCliente().size();
-		int distribuicao;
-		int calculo;
+	public void positiveDisposicaoClienteFemininoTeste() throws DAOException {
+		total = cadClnt.totalCliente();
 		distribuicao = 100 * listaFeminino.size();
 		distribuicao = distribuicao / total;
 		calculo = 100 * cadClnt.quantidadeClientesGenero("Feminino");
 		calculo = calculo / cadClnt.totalCliente();
 		assertEquals(distribuicao, calculo);
+	}
+
+	@Test
+	public void negativeDisposicaoClienteMasculinoTeste() throws DAOException {
+		cadClnt.removeAll();
+		total = cadClnt.totalCliente();
+		calculo = 100 * cadClnt.quantidadeClientesGenero("Masculino");
+		calculo = calculo / cadClnt.totalCliente();
+		assertFalse(0==calculo);
+	}
+
+	@Test
+	public void negativeDisposicaoClienteFemininoTeste() throws DAOException {
+		cadClnt.removeAll();
+		total = cadClnt.totalCliente();
+		calculo = 100 * cadClnt.quantidadeClientesGenero("Feminino");
+		calculo = calculo / cadClnt.totalCliente();
+		assertFalse(0==calculo);
 	}
 
 
