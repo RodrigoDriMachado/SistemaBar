@@ -22,6 +22,8 @@ public class DistribuicaoCategoriaTeste {
 	private List<Cliente> listaGold;
 	private List<Cliente> listaPlatinum;
 	private int total;
+	int distribuicao;
+	int calculo;
 
 	@Before
 	public void setUp() throws Exception {
@@ -30,6 +32,8 @@ public class DistribuicaoCategoriaTeste {
 		listaGold = new ArrayList<>();
 		listaPlatinum = new ArrayList<>();
 		total =0;
+		calculo =0;
+		distribuicao =0;
 		clnt = new Cliente("Alice Emanuelly Fernanda Mendes", "85288775400", "Feminino", 34, "VIP", CategoriaVIP.Platinum.getValuePlatinum());
 		cadClnt.add(clnt);
 		listaPlatinum.add(clnt);
@@ -42,11 +46,10 @@ public class DistribuicaoCategoriaTeste {
 
 	}
 
+
 	@Test
-	public void testeDisposicaoSilver() throws DAOException {
+	public void positiveDisposicaoSilverTeste() throws DAOException {
 		total = cadClnt.listaCliente().size();
-		int distribuicao;
-		int calculo;
 		distribuicao = 100 * listaSilver.size();
 		distribuicao = distribuicao / total;
 		calculo = 100 * cadClnt.quantidadeClienteCategoria(CategoriaVIP.Silver.getValueSilver());
@@ -55,27 +58,20 @@ public class DistribuicaoCategoriaTeste {
 	}
 
 	@Test
-	public void testeDisposicaoGold() throws DAOException {
+	public void positiveDisposicaoGoldTeste() throws DAOException {
 		clnt = new Cliente("Benício Caio Cardoso", "15910481843", "Masculino", 34, "VIP", CategoriaVIP.Gold.getValueGold());
 		cadClnt.add(clnt);
 		listaGold.add(clnt);
 		total = cadClnt.totalCliente();
-		int distribuicao;
-		int calculo;
-		//System.out.println("TOTAL " + total);
 		distribuicao = 100 * listaGold.size();
-		//System.out.println("DISTRIBUICAO " + distribuicao);
 		distribuicao = distribuicao / total;
-		//System.out.println("DISTRIBUICAO 2 " + distribuicao );
 		calculo = 100 * cadClnt.quantidadeClienteCategoria("Gold");
-		//System.out.println("CALCULO " + calculo);
 		calculo = calculo / cadClnt.totalCliente();
-		//System.out.println("CALCULO 2 " + calculo);
 		assertEquals(distribuicao, calculo);
 	}
 
 	@Test
-	public void testeDisposicaoPlatinum() throws DAOException {
+	public void positiveDisposicaoPlatinumTeste() throws DAOException {
 		clnt = new Cliente("Fernando Raul Rocha", "13673299220", "Masculino", 28, "VIP", CategoriaVIP.Platinum.getValueGold());
 		cadClnt.add(clnt);
 		listaPlatinum.add(clnt);
@@ -85,14 +81,26 @@ public class DistribuicaoCategoriaTeste {
 		cadClnt.removeCliente(cadClnt.pesquisaClienteCPF("13673299220"));
 		listaPlatinum.remove(cadClnt.pesquisaClienteCPF("58203112722"));
 		total = cadClnt.listaCliente().size();
-		int distribuicao;
-		int calculo;
 		distribuicao = 100 * listaPlatinum.size();
 		distribuicao = distribuicao / total;
 		calculo = 100 * cadClnt.quantidadeClienteCategoria(CategoriaVIP.Platinum.getValueGold());
 		calculo = calculo / cadClnt.totalCliente();
 		assertEquals(distribuicao, calculo);
 	}
+
+	@Test
+	public void negativeDisposicaoSilverTeste() throws DAOException {
+		cadClnt.removeAll();
+		System.out.println("CLIENTES 1 " + cadClnt.quantidadeClienteCategoria(CategoriaVIP.Silver.getValueSilver()));
+		clnt = new Cliente("Maria Marcela Lara Almeida", "86041050261", "Feminino", 47, "VIP", CategoriaVIP.Gold.getValueGold());
+		System.out.println("CLIENTES 2 " + cadClnt.quantidadeClienteCategoria(CategoriaVIP.Silver.getValueSilver()));
+		calculo = 100 * cadClnt.quantidadeClienteCategoria(CategoriaVIP.Silver.getValueSilver());
+		System.out.println("CALCULO" + calculo);
+		calculo = calculo / cadClnt.totalCliente();
+		System.out.println("DIVISAO " + calculo);
+		assertEquals(0,calculo);
+	}
+
 
 
 }

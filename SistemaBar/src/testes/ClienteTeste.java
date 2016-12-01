@@ -1,6 +1,8 @@
 package testes;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,49 +23,49 @@ public class ClienteTeste {
 	@Test
 	public void negativeValidacaoClienteNomeComposto() {
 			Cliente cliente = new Cliente("Fulano", "12345678900", "Masculino", 22, "Comum", null);
-			Assert.assertFalse(ValidadorCliente.getInstance().validaNome(cliente.getNome()));
+			assertFalse(ValidadorCliente.getInstance().validaNome(cliente.getNome()));
 	}
 
 	@Test
 	public void negativeValidacaoClienteCpf() {
 			Cliente cliente = new Cliente("Fulano Cpf Pequeno", "123", "Masculino", 22, "Comum", null);
-			Assert.assertFalse(ValidadorCliente.getInstance().validaCpf(cliente.getCpf()));
+			assertFalse(ValidadorCliente.getInstance().validaCpf(cliente.getCpf()));
 	}
 
 	@Test
 	public void negativeValidacaoClienteIdade() {
 			Cliente cliente = new Cliente("Fulano da Silva", "12345678900", "Masculino", 15, "Comum", null);
-			Assert.assertFalse(ValidadorCliente.getInstance().validaIdade(cliente.getIdade()));
+			assertFalse(ValidadorCliente.getInstance().validaIdade(cliente.getIdade()));
 	}
 
 	@Test
 	public void negativeValidacaoClienteSexo() {
 			Cliente cliente = new Cliente("Fulano da Silva", "12345678900", "undefined", 22, "Comum", null);
-			Assert.assertFalse(ValidadorCliente.getInstance().validaSexo(cliente.getSexo()));
+			assertFalse(ValidadorCliente.getInstance().validaSexo(cliente.getSexo()));
 	}
 
 	@Test
 	public void positiveValidacaoClienteNomeComposto() {
 			Cliente cliente = new Cliente("Fulano Composto", "12345678900", "Masculino", 22, "Comum", null);
-			Assert.assertTrue(ValidadorCliente.getInstance().validaNome(cliente.getNome()));
+			assertTrue(ValidadorCliente.getInstance().validaNome(cliente.getNome()));
 	}
 
 	@Test
 	public void positiveValidacaoClienteCpf() {
 			Cliente cliente = new Cliente("Fulano Cpf Pequeno", "12345678900", "Masculino", 22, "Comum", null);
-			Assert.assertTrue(ValidadorCliente.getInstance().validaCpf(cliente.getCpf()));
+			assertTrue(ValidadorCliente.getInstance().validaCpf(cliente.getCpf()));
 	}
 
 	@Test
 	public void positiveValidacaoClienteIdade() {
 			Cliente cliente = new Cliente("Fulano da Silva", "12345678900", "Masculino", 18, "Comum", null);
-			Assert.assertTrue(ValidadorCliente.getInstance().validaIdade(cliente.getIdade()));
+			assertTrue(ValidadorCliente.getInstance().validaIdade(cliente.getIdade()));
 	}
 
 	@Test
 	public void positiveValidacaoClienteSexo() {
 			Cliente cliente = new Cliente("Fulano da Silva", "12345678900", "Masculino", 22, "Comum", null);
-			Assert.assertTrue(ValidadorCliente.getInstance().validaSexo(cliente.getSexo()));
+			assertTrue(ValidadorCliente.getInstance().validaSexo(cliente.getSexo()));
 	}
 
 }
