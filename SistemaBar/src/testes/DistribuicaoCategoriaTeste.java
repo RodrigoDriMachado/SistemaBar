@@ -91,13 +91,9 @@ public class DistribuicaoCategoriaTeste {
 	@Test
 	public void negativeDisposicaoSilverTeste() throws DAOException {
 		cadClnt.removeAll();
-		System.out.println("CLIENTES 1 " + cadClnt.quantidadeClienteCategoria(CategoriaVIP.Silver.getValueSilver()));
 		clnt = new Cliente("Maria Marcela Lara Almeida", "86041050261", "Feminino", 47, "VIP", CategoriaVIP.Gold.getValueGold());
-		System.out.println("CLIENTES 2 " + cadClnt.quantidadeClienteCategoria(CategoriaVIP.Silver.getValueSilver()));
 		calculo = 100 * cadClnt.quantidadeClienteCategoria(CategoriaVIP.Silver.getValueSilver());
-		System.out.println("CALCULO" + calculo);
 		calculo = calculo / cadClnt.totalCliente();
-		System.out.println("DIVISAO " + calculo);
 		assertEquals(0,calculo);
 	}
 
