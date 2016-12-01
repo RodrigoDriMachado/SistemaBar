@@ -1,11 +1,14 @@
 package persistencia;
 
 import java.io.*;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import negocio.Cliente;
 public class ClienteTxtFile {
@@ -14,93 +17,38 @@ public class ClienteTxtFile {
     private static final String arquivoSaida = "saida.txt";
     private List<Cliente> listaCliente;
 
+
+
+    public ClienteTxtFile() throws IOException {
+        listaCliente = new ArrayList<Cliente>();
+
+    }
+
     private void saveDataEntrada() throws IOException {
        FileWriter fw = new FileWriter(arquivoEntrada);
         for (Cliente c : listaCliente) {
-            fw.write(c.toString());
+            fw.write(horas() + " " + c.toString());
             fw.write("\n");
         }
         fw.close();
     }
 
-    private void loadDataEntrada() throws IOException {
-        FileReader fr = new FileReader(arquivoEntrada);
-        BufferedReader br = new BufferedReader(fr);
-        String line = br.readLine();
-        while (line != null) {
-            StringTokenizer st = new StringTokenizer(line, ",");
-            String nome = st.nextToken();
-            String cpf = st.nextToken();
-
-            int idade = 0;
-
-            try {
-                idade = Integer.parseInt(st.nextToken());
-
-            } catch (NumberFormatException e) {
-                throw new IOException("Formato de dados invlido", e);
-            }
-            String sexo = st.nextToken();
-            String tipoCliente = st.nextToken();
-            String categoria = st.nextToken();
-
-            try {
-                Cliente clnt = new Cliente(nome, cpf, sexo, idade, tipoCliente, categoria);
-                listaCliente.add(clnt);
-            } catch (IllegalArgumentException e) {
-                throw new IOException("Valor de dados invalido", e);
-            }
-            line = br.readLine();
-        }
-        br.close();
+    private static String horas() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
+
 
     private void saveDataSaida(Cliente clnt) throws IOException {
         FileWriter fw = new FileWriter(arquivoSaida);
         for (Cliente c : listaCliente) {
             if (c.equals(clnt)) {
-                fw.write(c.toString());
+            	 fw.write(horas() + " " + c.toString());
+            	 fw.write("\n");
             }
         }
         fw.close();
-    }
-
-    private void loadDataSaida() throws IOException {
-        FileReader fr = new FileReader(arquivoEntrada);
-        BufferedReader br = new BufferedReader(fr);
-        String line = br.readLine();
-        while (line != null) {
-            StringTokenizer st = new StringTokenizer(line, ",");
-            String nome = st.nextToken();
-            String cpf = st.nextToken();
-
-            int idade = 0;
-
-            try {
-                idade = Integer.parseInt(st.nextToken());
-
-            } catch (NumberFormatException e) {
-                throw new IOException("Formato de dados invlido", e);
-            }
-            String sexo = st.nextToken();
-            String tipoCliente = st.nextToken();
-            String categoria = st.nextToken();
-
-            try {
-                Cliente clnt = new Cliente(nome, cpf, sexo, idade, tipoCliente, categoria);
-                listaCliente.add(clnt);
-            } catch (IllegalArgumentException e) {
-                throw new IOException("Valor de dados invalido", e);
-            }
-            line = br.readLine();
-        }
-        br.close();
-    }
-
-    public ClienteTxtFile() throws IOException {
-        listaCliente = new ArrayList<Cliente>();
-        File fentrada = new File(arquivoEntrada);
-        File fsaida = new File(arquivoSaida);
     }
 
     public void add(Cliente cliente) {
