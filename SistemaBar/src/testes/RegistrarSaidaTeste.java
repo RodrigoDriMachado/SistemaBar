@@ -1,4 +1,4 @@
-package Testes;
+package testes;
 
 import static org.junit.Assert.*;
 
@@ -7,10 +7,10 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-import Negocio.CadastroClienteDAO;
-import Negocio.Cliente;
-import Negocio.ClienteDAO;
-import Persistencia.DAOException;
+import negocio.CadastroClienteDAO;
+import negocio.Cliente;
+import negocio.ClienteDAO;
+import persistencia.DAOException;
 
 public class RegistrarSaidaTeste {
 

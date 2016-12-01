@@ -1,8 +1,8 @@
-package Interface;
+package gui;
 
-import Negocio.BarException;
-import Negocio.CategoriaVIP;
-import Persistencia.DAOException;
+import negocio.BarException;
+import negocio.CategoriaVIP;
+import persistencia.DAOException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

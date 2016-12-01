@@ -1,8 +1,9 @@
-package Negocio;
+package negocio;
 
-import Persistencia.DAOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import persistencia.DAOException;
 
 public interface CadastroClienteDAO {
 

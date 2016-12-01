@@ -1,4 +1,4 @@
-package Interface;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 
-import Negocio.BarException;
+import negocio.BarException;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;

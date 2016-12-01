@@ -1,10 +1,10 @@
-package Negocio;
+package negocio;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Persistencia.ClienteTxtFile;
-import Persistencia.DAOException;
+import persistencia.ClienteTxtFile;
+import persistencia.DAOException;
 
 import java.io.FileWriter;
 import java.io.IOException;

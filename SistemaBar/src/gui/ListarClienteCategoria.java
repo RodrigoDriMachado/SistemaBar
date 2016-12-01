@@ -1,4 +1,4 @@
-package Interface;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,8 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultComboBoxModel;
-import Negocio.CategoriaVIP;
-import Persistencia.DAOException;
+
+import negocio.CategoriaVIP;
+import persistencia.DAOException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

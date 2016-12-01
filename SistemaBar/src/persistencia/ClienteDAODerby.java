@@ -1,4 +1,4 @@
-package Persistencia;
+package persistencia;
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
@@ -8,10 +8,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-import Negocio.CadastroClienteDAO;
-import Negocio.Cliente;
+import negocio.CadastroClienteDAO;
+import negocio.Cliente;
 
 public class ClienteDAODerby implements CadastroClienteDAO {
 

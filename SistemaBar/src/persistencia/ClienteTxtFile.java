@@ -1,12 +1,13 @@
-package Persistencia;
+package persistencia;
 
-import Negocio.Cliente;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import negocio.Cliente;
 public class ClienteTxtFile {
 
     private static final String arquivoEntrada = "entrada.txt";

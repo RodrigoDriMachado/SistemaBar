@@ -1,4 +1,4 @@
-package Negocio;
+package negocio;
 
 public class BarException extends Exception{
     

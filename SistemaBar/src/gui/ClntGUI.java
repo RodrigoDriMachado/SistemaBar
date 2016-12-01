@@ -1,18 +1,18 @@
-package Interface;
-
-import Negocio.BarException;
-import Negocio.Cliente;
-import Negocio.ClienteDAO;
-import Negocio.ValidadorCliente;
-import Persistencia.ClienteDAODerby;
+package gui;
 
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
-import Negocio.CadastroClienteDAO;
-import Persistencia.ClienteTxtFile;
-import Persistencia.DAOException;
+
+import negocio.BarException;
+import negocio.CadastroClienteDAO;
+import negocio.Cliente;
+import negocio.ClienteDAO;
+import negocio.ValidadorCliente;
+import persistencia.ClienteDAODerby;
+import persistencia.ClienteTxtFile;
+import persistencia.DAOException;
 
 public class ClntGUI {
 
